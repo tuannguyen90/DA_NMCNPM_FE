@@ -1,0 +1,19 @@
+.auth-page-container {
+  flex-grow: 1;
+  height: 100%;
+  display: flex;
+}
+
+.auth-page-left {
+  flex-grow: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.auth-page-right {
+  flex-grow: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
