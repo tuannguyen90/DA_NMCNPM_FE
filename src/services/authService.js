@@ -1,14 +1,71 @@
 import apiClient from "./api";
 
-const login = async (email, password) => {
+const registerAPI = async (
+  email,
+  matKhau,
+  tenDayDu,
+  diaChi,
+  dienThoai,
+  loai
+) => {
   try {
-    const response = await apiClient.post("/login", { email, password });
-    const authStore = useAuthStore();
-    authStore.setToken(response.data.token);
-    authStore.setUser(email);
-    authStore.setUserId(response.data.user_id);
-    return true;
+    const response = await apiClient.post("/NguoiDung/register", {
+      Email: email,
+      TenDangNhap: email,
+      TenDayDu: tenDayDu,
+      MatKhau: matKhau,
+      DiaChi: diaChi,
+      DienThoai: dienThoai,
+      Loai: loai,
+    });
+
+    console.log(response.status);
+    if (response.status == 201) {
+      return response.data.token;
+    } else {
+      return null;
+    }
   } catch (error) {
     throw error;
   }
+};
+
+const verifyOTP = async (code, soDienThoai) => {
+  try {
+    const response = await apiClient.put("/NguoiDung/verifyOtp", {
+      code: code,
+      dienThoai: soDienThoai,
+    });
+
+    if (response.status == 200) {
+      return true;
+    } else {
+      return false;
+    }
+  } catch (error) {
+    throw error;
+  }
+};
+
+const loginAPI = async (email, password) => {
+  try {
+    const response = await apiClient.post("/NguoiDung/login", {
+      email: email,
+      matkhau: password,
+    });
+
+    if (response.status == 200) {
+      return response.data.token;
+    } else {
+      return null;
+    }
+  } catch (error) {
+    throw error;
+  }
+};
+
+export default {
+  registerAPI,
+  verifyOTP,
+  loginAPI,
 };

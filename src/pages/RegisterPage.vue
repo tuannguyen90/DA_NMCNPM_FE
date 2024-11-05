@@ -2,7 +2,7 @@
   <div class="auth-page-container">
     <div class="auth-page-left">
       <!-- Login form -->
-      <form class="login-form" @submit.prevent="dangKy">
+      <form v-if="!isVerifyingOTP" @submit.prevent="dangKy">
         <h2>Đăng ký</h2>
         <!-- Name -->
         <label for="name" style="margin-top: 16px">Tên</label>
@@ -37,17 +37,26 @@
         <!-- Phone number -->
         <label for="tel">Số điện thoại</label>
         <input type="tel" v-model="soDienThoai" />
-        <!-- OTP verify -->
-        <label>Xác thực OTP</label>
-        <input type="text" v-model="otp" />
-        <!-- Gửi OTP button & Đăng ký button -->
+        <!-- Đăng ký Button -->
         <div class="register-btns-container">
-          <button @click.prevent="">Gửi mã OTP</button>
           <button type="submit">Đăng ký</button>
         </div>
       </form>
+
+      <!-- Verifying OTP form -->
+      <form v-if="isVerifyingOTP" @submit.prevent="xacThucOTP">
+        <h2>Đăng ký</h2>
+        <p>Mã xác nhận đã được gửi đến số điện thoại {{ soDienThoai }}.</p>
+        <!-- OTP verify -->
+        <label>Xác thực OTP</label>
+        <input type="text" v-model="otp" />
+        <!-- Xác thực Button -->
+        <div class="register-btns-container">
+          <button type="submit">Xác thực</button>
+        </div>
+      </form>
       <!-- Error message -->
-      <p v-if="errorMessage" class="error">{{ errorMessage }}</p>
+      <p v-if="errorMessage" class="errorMsg">{{ errorMessage }}</p>
     </div>
     <div
       class="auth-page-right"
@@ -61,6 +70,10 @@
 </template>
 
 <script>
+import router from "@/router";
+import { useUserStore } from "@/stores/user";
+import authService from "@/services/authService";
+
 export default {
   name: "RegisterPage",
   data() {
@@ -73,16 +86,36 @@ export default {
       otp: "",
       passwordFieldType: "password",
       errorMessage: "",
+      isVerifyingOTP: false,
     };
   },
   methods: {
     async dangKy() {
-      console.log(this.ten);
-      console.log(this.email);
-      console.log(this.password);
-      console.log(this.soDienThoai);
-      console.log(this.otp);
-      console.log(this.loaiNguoiDung);
+      var token = await authService.registerAPI(
+        this.email,
+        this.password,
+        this.ten,
+        "",
+        this.soDienThoai,
+        0
+      );
+
+      if (token != null) {
+        // Lưu token vao store
+        const userStore = useUserStore();
+        userStore.setToken(token);
+
+        // Chuyển sang verify OTP
+        this.isVerifyingOTP = true;
+      }
+    },
+    async xacThucOTP() {
+      var isSuccess = await authService.verifyOTP(this.otp, this.soDienThoai);
+      if (isSuccess) {
+        router.push("/dang-nhap");
+      } else {
+        this.errorMessage = "Mã xác thực không chính xác";
+      }
     },
     togglePasswordVisibility() {
       this.passwordFieldType =
@@ -100,6 +133,6 @@ label {
 .register-btns-container {
   margin-top: 8px;
   display: flex;
-  justify-content: space-between;
+  justify-content: start;
 }
 </style>

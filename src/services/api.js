@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useAuthStore } from "@/stores/auth";
+import { useUserStore } from "@/stores/user";
 
 const apiClient = axios.create({
   baseURL: import.meta.env.VITE_API_DOMAIN,
@@ -10,8 +10,8 @@ const apiClient = axios.create({
 
 apiClient.interceptors.request.use(
   (config) => {
-    const authStore = useAuthStore();
-    const token = authStore.token;
+    const userStore = useUserStore();
+    const token = userStore.token;
     if (token != "") {
       config.headers.Authorization = `Bearer ${token}`;
     }

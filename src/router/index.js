@@ -19,6 +19,11 @@ const router = createRouter({
       name: "RegisterPage",
       component: RegisterPage,
     },
+    {
+      path: "/trang-chu",
+      name: "HomePage",
+      component: HomePage,
+    },
   ],
 });
 

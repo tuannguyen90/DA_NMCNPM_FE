@@ -1,9 +1,10 @@
 import { defineStore } from "pinia";
 
-export const useAuthStore = defineStore("auth", {
+export const useUserStore = defineStore("user", {
   state: () => ({
     email: localStorage.getItem("email") || "",
     ten: localStorage.getItem("ten") || "",
+    token: localStorage.getItem("token") || "",
   }),
   actions: {
     setEmail(email) {
@@ -13,6 +14,10 @@ export const useAuthStore = defineStore("auth", {
     setTen(ten) {
       this.ten = ten;
       localStorage.setItem("ten", ten);
+    },
+    setToken(token) {
+      this.token = token;
+      localStorage.setItem("token", token);
     },
   },
 });
