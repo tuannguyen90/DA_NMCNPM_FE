@@ -1,8 +1,10 @@
 import { createRouter, createWebHistory } from "vue-router";
 
-import HomePage from "@/pages/HomePage.vue";
+import HomeLayout from "@/components/HomeLayout.vue";
 import LoginPage from "@/pages/LoginPage.vue";
 import RegisterPage from "@/pages/RegisterPage.vue";
+import TheoDoiBaoCaoPage from "@/pages/TheoDoiBaoCaoPage.vue";
+import QuanLyChienDichPage from "@/pages/QuanLyChienDichPage.vue";
 
 const routerHistory = createWebHistory();
 
@@ -21,8 +23,18 @@ const router = createRouter({
     },
     {
       path: "/trang-chu",
-      name: "HomePage",
-      component: HomePage,
+      name: "HomeLayout",
+      component: HomeLayout,
+    },
+    {
+      path: "/theo-doi-bao-cao",
+      name: "TheoDoiBaoCaoPage",
+      component: TheoDoiBaoCaoPage,
+    },
+    {
+      path: "/quan-ly-chien-dich",
+      name: "QuanLyChienDichPage",
+      component: QuanLyChienDichPage,
     },
   ],
 });

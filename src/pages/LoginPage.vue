@@ -74,7 +74,7 @@ export default {
         if (token != null) {
           const userStore = useUserStore();
           userStore.setToken(token);
-          router.push("/trang-chu");
+          router.push("/theo-doi-bao-cao");
         } else {
           this.errorMsg = "Vui lòng kiểm tra lại email, mật khẩu.";
         }

@@ -6,12 +6,12 @@
         <h2>Đăng ký</h2>
         <!-- Name -->
         <label for="name" style="margin-top: 16px">Tên</label>
-        <input type="name" v-model="ten" />
+        <input id="name" type="name" v-model="ten" />
         <!-- Email -->
         <label for="email">Email</label>
-        <input type="email" v-model="email" />
+        <input id="email" type="email" v-model="email" />
         <!-- Password -->
-        <label
+        <label for="mat-khau"
           >Mật khẩu
           <a
             href="#"
@@ -21,7 +21,7 @@
             >{{ passwordFieldType === "password" ? "(Hiển thị)" : "(Ẩn)" }}</a
           ></label
         >
-        <input :type="passwordFieldType" v-model="password" />
+        <input id="mat-khau" :type="passwordFieldType" v-model="password" />
         <!-- Role -->
         <label>Vai trò</label>
         <select
@@ -36,7 +36,7 @@
         </select>
         <!-- Phone number -->
         <label for="tel">Số điện thoại</label>
-        <input type="tel" v-model="soDienThoai" />
+        <input id="tel" type="tel" v-model="soDienThoai" />
         <!-- Đăng ký Button -->
         <div class="register-btns-container">
           <button type="submit">Đăng ký</button>

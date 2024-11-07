@@ -1,0 +1,122 @@
+[
+  {
+    "IDChienDich": 1,
+    "Ten": "Quyên Góp Cho Vùng Lũ Miền Trung",
+    "NoiDung": "Chiến dịch quyên góp tiền để hỗ trợ người dân miền Trung bị ảnh hưởng bởi lũ lụt nghiêm trọng.",
+    "NgayBatDau": "2024-01-15T00:00:00",
+    "NgayKetThuc": "2024-02-15T23:59:59",
+    "NganSachDuKien": 5000000.0,
+    "ThucThu": 4500000.0,
+    "ThucChi": 4800000.0,
+    "TrangThai": 1,
+    "IDToChuc": 1001
+  },
+  {
+    "IDChienDich": 2,
+    "Ten": "Giúp Đỡ Vùng Lũ Tây Bắc",
+    "NoiDung": "Kêu gọi quyên góp để giúp đỡ các gia đình chịu thiệt hại nặng nề do lũ lụt ở vùng Tây Bắc.",
+    "NgayBatDau": "2024-03-01T00:00:00",
+    "NgayKetThuc": "2024-03-31T23:59:59",
+    "NganSachDuKien": 8000000.0,
+    "ThucThu": 7500000.0,
+    "ThucChi": 7700000.0,
+    "TrangThai": 1,
+    "IDToChuc": 1002
+  },
+  {
+    "IDChienDich": 3,
+    "Ten": "Ủng Hộ Vùng Lũ Đồng Bằng Sông Cửu Long",
+    "NoiDung": "Chiến dịch nhằm cung cấp nhu yếu phẩm và hỗ trợ tài chính cho người dân Đồng Bằng Sông Cửu Long bị lũ.",
+    "NgayBatDau": "2024-04-10T00:00:00",
+    "NgayKetThuc": "2024-05-10T23:59:59",
+    "NganSachDuKien": 7000000.0,
+    "ThucThu": 6800000.0,
+    "ThucChi": 6900000.0,
+    "TrangThai": 1,
+    "IDToChuc": 1003
+  },
+  {
+    "IDChienDich": 4,
+    "Ten": "Cứu Trợ Khẩn Cấp Miền Nam",
+    "NoiDung": "Gây quỹ để hỗ trợ các gia đình ở miền Nam Việt Nam đang gặp khó khăn do lũ lụt tàn phá.",
+    "NgayBatDau": "2024-06-01T00:00:00",
+    "NgayKetThuc": "2024-06-30T23:59:59",
+    "NganSachDuKien": 9000000.0,
+    "ThucThu": 8700000.0,
+    "ThucChi": 8800000.0,
+    "TrangThai": 1,
+    "IDToChuc": 1004
+  },
+  {
+    "IDChienDich": 5,
+    "Ten": "Hỗ Trợ Khẩn Cấp Miền Bắc",
+    "NoiDung": "Tổ chức quyên góp để giúp đỡ các vùng bị lũ lụt ở miền Bắc và khắc phục hậu quả thiên tai.",
+    "NgayBatDau": "2024-07-01T00:00:00",
+    "NgayKetThuc": "2024-07-31T23:59:59",
+    "NganSachDuKien": 6000000.0,
+    "ThucThu": 5800000.0,
+    "ThucChi": 5900000.0,
+    "TrangThai": 1,
+    "IDToChuc": 1005
+  },
+  {
+    "IDChienDich": 6,
+    "Ten": "Chung Tay Vì Vùng Lũ Lào Cai",
+    "NoiDung": "Chiến dịch kêu gọi cộng đồng chung tay ủng hộ người dân Lào Cai bị ảnh hưởng nặng nề bởi lũ lụt.",
+    "NgayBatDau": "2024-08-15T00:00:00",
+    "NgayKetThuc": "2024-09-15T23:59:59",
+    "NganSachDuKien": 7500000.0,
+    "ThucThu": 7200000.0,
+    "ThucChi": 7400000.0,
+    "TrangThai": 1,
+    "IDToChuc": 1006
+  },
+  {
+    "IDChienDich": 7,
+    "Ten": "Quyên Góp Cho Đồng Bào Vùng Lũ Sơn La",
+    "NoiDung": "Chương trình quyên góp tiền và vật phẩm để giúp đỡ đồng bào Sơn La bị thiệt hại nặng nề do lũ lụt.",
+    "NgayBatDau": "2024-09-01T00:00:00",
+    "NgayKetThuc": "2024-09-30T23:59:59",
+    "NganSachDuKien": 8200000.0,
+    "ThucThu": 8000000.0,
+    "ThucChi": 8100000.0,
+    "TrangThai": 1,
+    "IDToChuc": 1007
+  },
+  {
+    "IDChienDich": 8,
+    "Ten": "Góp Một Tay Cứu Trợ Vùng Lũ Hà Giang",
+    "NoiDung": "Kêu gọi mọi người quyên góp để hỗ trợ khẩn cấp cho các gia đình chịu ảnh hưởng bởi lũ lụt tại Hà Giang.",
+    "NgayBatDau": "2024-10-01T00:00:00",
+    "NgayKetThuc": "2024-10-31T23:59:59",
+    "NganSachDuKien": 7800000.0,
+    "ThucThu": 7600000.0,
+    "ThucChi": 7700000.0,
+    "TrangThai": 1,
+    "IDToChuc": 1008
+  },
+  {
+    "IDChienDich": 9,
+    "Ten": "Ủng Hộ Vùng Lũ Quảng Bình",
+    "NoiDung": "Gây quỹ để giúp đỡ các gia đình tại Quảng Bình bị ảnh hưởng nặng nề do lũ lụt kéo dài.",
+    "NgayBatDau": "2024-11-01T00:00:00",
+    "NgayKetThuc": "2024-11-30T23:59:59",
+    "NganSachDuKien": 8500000.0,
+    "ThucThu": 8300000.0,
+    "ThucChi": 8400000.0,
+    "TrangThai": 1,
+    "IDToChuc": 1009
+  },
+  {
+    "IDChienDich": 10,
+    "Ten": "Hỗ Trợ Vùng Lũ Phú Yên",
+    "NoiDung": "Quyên góp tiền và nhu yếu phẩm để cứu trợ các gia đình ở Phú Yên chịu ảnh hưởng của thiên tai lũ lụt.",
+    "NgayBatDau": "2024-12-01T00:00:00",
+    "NgayKetThuc": "2024-12-31T23:59:59",
+    "NganSachDuKien": 8800000.0,
+    "ThucThu": 8600000.0,
+    "ThucChi": 8700000.0,
+    "TrangThai": 1,
+    "IDToChuc": 1010
+  }
+]
