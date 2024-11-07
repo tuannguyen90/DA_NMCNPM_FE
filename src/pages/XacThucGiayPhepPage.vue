@@ -1,15 +1,35 @@
 <template>
-  <div>
-    <input type="file" @change="handleFileUpload" />
-    <button @click.prevent="uploadImage">Upload Image</button>
-  </div>
+  <HomeLayout>
+    <!-- Header -->
+    <template v-slot:header>
+      <Header title="Xác thực giấy phép" />
+    </template>
+
+    <!-- Main -->
+    <template v-slot:main>
+      <div class="upload-hinh-anh-container">
+        <input class="input-upload" type="file" @change="handleFileUpload" />
+        <button @click.prevent="uploadImage">Upload Image</button>
+      </div>
+    </template>
+
+    <!-- Secondary -->
+    <template v-slot:secondary> </template>
+  </HomeLayout>
 </template>
 
 <script>
+import HomeLayout from "@/components/HomeLayout.vue";
+import Header from "@/components/Header.vue";
+
 import authService from "@/services/authService";
 
 export default {
   name: "XacThucGiayPhepPage",
+  components: {
+    HomeLayout,
+    Header,
+  },
   data() {
     return {
       selectedFile: null,
@@ -42,4 +62,13 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+.upload-hinh-anh-container {
+  margin: 20px;
+  display: flex;
+  flex-direction: row;
+}
+.input-upload {
+  margin-right: 20px;
+}
+</style>
