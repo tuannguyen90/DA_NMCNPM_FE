@@ -91,13 +91,27 @@ export default {
   },
   methods: {
     async dangKy() {
+      // loại người dùng
+      var loaiNguoiDung = 0;
+      switch (this.loaiNguoiDung) {
+        case "ToChucTuThien":
+          loaiNguoiDung = 3;
+          break;
+        case "NguoiNhanHoTro":
+          loaiNguoiDung = 2;
+          break;
+        case "NguoiDongGop":
+          loaiNguoiDung = 1;
+          break;
+      }
+
       var token = await authService.registerAPI(
         this.email,
         this.password,
         this.ten,
         "",
         this.soDienThoai,
-        0
+        loaiNguoiDung
       );
 
       if (token != null) {

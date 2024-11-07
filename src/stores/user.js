@@ -5,6 +5,7 @@ export const useUserStore = defineStore("user", {
     email: localStorage.getItem("email") || "",
     ten: localStorage.getItem("ten") || "",
     token: localStorage.getItem("token") || "",
+    userId: localStorage.getItem("user-id") || "",
   }),
   actions: {
     setEmail(email) {
@@ -18,6 +19,10 @@ export const useUserStore = defineStore("user", {
     setToken(token) {
       this.token = token;
       localStorage.setItem("token", token);
+    },
+    setUserId(userId) {
+      this.userId = userId;
+      localStorage.setItem("user-id");
     },
   },
 });

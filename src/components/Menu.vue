@@ -40,7 +40,7 @@
       <div class="menu-item">
         <div class="menu-item-leading">Icon</div>
         <div class="menu-item-content">
-          <a href="#">Xác thực giấy phép</a>
+          <a href="/xac-thuc-giay-phep">Xác thực giấy phép</a>
         </div>
         <div class="menu-item-trailing">Icon</div>
       </div>

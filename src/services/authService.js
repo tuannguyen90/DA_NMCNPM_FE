@@ -1,4 +1,5 @@
 import apiClient from "./api";
+import { useUserStore } from "@/stores/user";
 
 const registerAPI = async (
   email,
@@ -64,8 +65,39 @@ const loginAPI = async (email, password) => {
   }
 };
 
+const submitPaperAPI = async (file) => {
+  // Lấy userId
+  const userStore = useUserStore();
+  const userId = userStore.userId;
+
+  // Tạo formData
+  const formData = new FormData();
+  formData.append("file", file);
+
+  // endpoint
+  // const endpoint = `/NguoiDung/${userId}/submitPaper`;
+  const endpoint = `/NguoiDung/1040/submitPaper`;
+
+  // Gọi API
+  try {
+    const response = await apiClient.put(endpoint, formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
+    if (response.status == 200) {
+      return true;
+    } else {
+      return false;
+    }
+  } catch (error) {
+    throw error;
+  }
+};
+
 export default {
   registerAPI,
   verifyOTP,
   loginAPI,
+  submitPaperAPI,
 };
