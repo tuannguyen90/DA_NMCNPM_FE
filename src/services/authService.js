@@ -65,6 +65,30 @@ const loginAPI = async (email, password) => {
   }
 };
 
+const getPaperAPI = async () => {
+  // Lấy userId
+  const userStore = useUserStore();
+  const userId = userStore.userId;
+
+  // endpoint
+  // const endpoint = `/NguoiDung/${userId}/downloadPaper`;
+  const endpoint = `/NguoiDung/1040/downloadPaper`;
+
+  // Gọi API
+  try {
+    const response = await apiClient.get(endpoint, {
+      responseType: "arraybuffer",
+    });
+    if (response.status == 200) {
+      return response.data;
+    } else {
+      return null;
+    }
+  } catch (error) {
+    throw error;
+  }
+};
+
 const submitPaperAPI = async (file) => {
   // Lấy userId
   const userStore = useUserStore();
@@ -99,5 +123,6 @@ export default {
   registerAPI,
   verifyOTP,
   loginAPI,
+  getPaperAPI,
   submitPaperAPI,
 };
