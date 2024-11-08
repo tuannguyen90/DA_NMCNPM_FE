@@ -3,7 +3,9 @@
     <div class="title">
       <div>{{ title }}</div>
     </div>
-    <div class="profile">Profile</div>
+    <div class="profile">
+      <i class="fa-solid fa-user"></i>
+    </div>
   </div>
 </template>
 
