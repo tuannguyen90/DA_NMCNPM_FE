@@ -1,20 +1,22 @@
 <template>
   <div class="chinh-sua-chien-dich-container">
     <!-- Create/Edit form -->
-    <form @submit.prevent="updateChienDich">
+    <form @submit.prevent="onSubmit">
       <!-- Title -->
       <div class="chinh-sua-title">{{ title }}</div>
 
       <!-- Save button -->
-      <button class="save-btn" type="submit">Lưu chỉnh sửa</button>
+      <button v-if="titleProp !== 'Thêm mới'" class="save-btn" type="submit">
+        Lưu chỉnh sửa
+      </button>
+
+      <button v-if="titleProp === 'Thêm mới'" class="save-btn" type="submit">
+        Thêm mới
+      </button>
 
       <!-- Tên chiến dịch -->
       <label for="ten-chien-dich">Tên chiến dịch:</label>
       <input type="text" id="ten-chien-dich" v-model="chienDich.ten" />
-
-      <!-- Tổ chức từ thiện -->
-      <label for="to-chuc-tu-thien">Tổ chức từ thiện:</label>
-      <input type="text" id="to-chuc-tu-thien" v-model="chienDich.idToChuc" />
 
       <!-- Mô tả -->
       <label for="mo-ta">Mô tả:</label>
@@ -22,11 +24,11 @@
 
       <!-- Ngày bắt đầu -->
       <label for="ngay-bat-dau">Ngày bắt đầu:</label>
-      <input type="datetime-local" v-model="chienDich.ngayBatDau" />
+      <input type="text" v-model="chienDich.ngayBatDau" />
 
       <!-- Ngày kết thúc -->
       <label for="ngay-ket-thuc">Ngày kết thúc:</label>
-      <input type="datetime-local" v-model="chienDich.ngayKetThuc" />
+      <input type="text" v-model="chienDich.ngayKetThuc" />
 
       <!-- Ngân sách dự kiến -->
       <label for="ngan-sach-du-kien">Ngân sách dự kiến (VND):</label>
@@ -36,13 +38,37 @@
         v-model="chienDich.nganSachDuKien"
       />
 
-      <!-- Thực thu -->
-      <label for="thuc-thu">Thực thu (VND):</label>
-      <input type="number" id="thuc-thu" v-model="chienDich.thucThu" />
+      <!-- Tài khoản Ngân hàng -->
+      <!-- Tên Ngân hàng -->
+      <label for="ten-ngan-hang">Tên Ngân Hàng:</label>
+      <input type="text" id="ten-ngan-hang" v-model="taiKhoan.tenNganHang" />
+
+      <!-- Tên chủ tài khoản -->
+      <label for="ten-chu-tai-khoan">Tên chủ tài khoản:</label>
+      <input
+        type="text"
+        id="ten-chu-tai-khoan"
+        v-model="taiKhoan.tenChuTaiKhoan"
+      />
+
+      <!-- Số tài khoản -->
+      <label for="so-tai-khoan">Số tài khoản:</label>
+      <input type="text" id="so-tai-khoan" v-model="taiKhoan.soTaiKhoan" />
+
+      <!-- SwiftCode -->
+      <label for="swift-code">Swift Code</label>
+      <input type="text" id="swift-code" v-model="taiKhoan.swiftCode" />
 
       <!-- Trạng thái -->
-      <label for="trang-thai">Trạng thái:</label>
-      <input type="text" id="trang-thai" v-model="chienDich.trangThai" />
+      <div v-if="titleProp !== 'Thêm mới'">
+        <label for="trang-thai">Trạng thái:</label>
+        <select id="trang-thai">
+          <option value="0">Tạo mới</option>
+          <option value="1">Đang hoạt động</option>
+          <option value="2">Đã hủy</option>
+          <option value="3">Đã hoàn tất</option>
+        </select>
+      </div>
     </form>
   </div>
 </template>
@@ -55,11 +81,15 @@ export default {
     return {
       chienDich: {},
       title: "",
+      taiKhoan: {},
     };
   },
   mounted() {
     this.chienDich = JSON.parse(JSON.stringify(this.chienDichProp));
     this.title = `${this.titleProp}`;
+    if (this.titleProp !== "Thêm mới") {
+      this.taiKhoan = this.chienDich.taiKhoan;
+    }
   },
   watch: {
     chienDichProp(newValue) {
@@ -70,11 +100,19 @@ export default {
     },
   },
   methods: {
-    async updateChienDich() {
-      // gọi api
-      // thông báo kết quả
-      alert("Lưu chiến dịch thành công!");
+    async onSubmit() {
+      if (this.title === "Thêm mới") {
+        this.themMoiChienDich();
+      } else {
+        this.chinhSuaChienDich();
+      }
     },
+    async themMoiChienDich() {
+      this.chienDich.taiKhoan = this.taiKhoan;
+      console.log(JSON.stringify(this.chienDich));
+      this.$emit("themMoiChienDich", this.chienDich);
+    },
+    async chinhSuaChienDich() {},
   },
 };
 </script>

@@ -9,7 +9,9 @@
     <template v-slot:main>
       <!-- Thêm mới button -->
       <div class="button-container">
-        <button @click.prevent="themChienDich">Thêm mới chiến dịch</button>
+        <button @click.prevent="themChienDichMainSection">
+          Thêm mới chiến dịch
+        </button>
       </div>
       <!-- Danh sách chiến dịch -->
       <DanhSachChienDich
@@ -23,6 +25,7 @@
         v-if="secondaryTitle"
         :titleProp="secondaryTitle"
         :chienDichProp="chienDich"
+        @themMoiChienDich="themChienDichSecondarySection"
       />
     </template>
   </HomeLayout>
@@ -57,8 +60,7 @@ export default {
   methods: {
     async getDanhSachChienDich() {
       try {
-        this.danhSachChienDich =
-          await chienDichService.getDanhSachChienDich_Sample();
+        this.danhSachChienDich = await chienDichService.getDanhSachChienDich();
       } catch (error) {
         console.log(`Lỗi tải danh sách chiến dịch (sample): ${error}`);
       }
@@ -68,9 +70,19 @@ export default {
       this.secondaryTitle = "Chỉnh sửa";
       this.chienDich = chienDich;
     },
-    themChienDich() {
+    themChienDichMainSection() {
       this.chienDich = {};
       this.secondaryTitle = "Thêm mới";
+    },
+    async themChienDichSecondarySection(chienDich) {
+      try {
+        const isSuccess = await chienDichService.themMoiChienDich(chienDich);
+        if (isSuccess) {
+          alert("Thêm mới thành công!");
+        } else {
+          alert("Thêm mới thất bại!");
+        }
+      } catch (error) {}
     },
   },
 };

@@ -10,6 +10,7 @@ export default class ChienDich {
     thucChi,
     trangThai,
     idToChuc,
+    taiKhoan,
   }) {
     this.idChienDich = idChienDich;
     this.ten = ten;
@@ -21,5 +22,6 @@ export default class ChienDich {
     this.thucChi = thucChi;
     this.trangThai = trangThai;
     this.idToChuc = idToChuc;
+    this.taiKhoan = taiKhoan;
   }
 }
