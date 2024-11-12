@@ -9,7 +9,14 @@
     "ThucThu": 4500000.0,
     "ThucChi": 4800000.0,
     "TrangThai": 1,
-    "IDToChuc": 1001
+    "IDToChuc": 1001,
+    "taiKhoan": {
+      "idtaiKhoan": 101,
+      "tenNganHang": "Ngân Hàng ABC",
+      "tenChuTaiKhoan": "Nguyễn Văn A",
+      "soTaiKhoan": "1234567890",
+      "swiftCode": "ABCVN123"
+    }
   },
   {
     "IDChienDich": 2,
@@ -21,7 +28,14 @@
     "ThucThu": 7500000.0,
     "ThucChi": 7700000.0,
     "TrangThai": 1,
-    "IDToChuc": 1002
+    "IDToChuc": 1002,
+    "taiKhoan": {
+      "idtaiKhoan": 102,
+      "tenNganHang": "Ngân Hàng XYZ",
+      "tenChuTaiKhoan": "Trần Thị B",
+      "soTaiKhoan": "0987654321",
+      "swiftCode": "XYZVN456"
+    }
   },
   {
     "IDChienDich": 3,
@@ -33,7 +47,14 @@
     "ThucThu": 6800000.0,
     "ThucChi": 6900000.0,
     "TrangThai": 1,
-    "IDToChuc": 1003
+    "IDToChuc": 1003,
+    "taiKhoan": {
+      "idtaiKhoan": 103,
+      "tenNganHang": "Ngân Hàng MNO",
+      "tenChuTaiKhoan": "Phạm Văn C",
+      "soTaiKhoan": "1122334455",
+      "swiftCode": "MNOVN789"
+    }
   },
   {
     "IDChienDich": 4,
@@ -45,7 +66,14 @@
     "ThucThu": 8700000.0,
     "ThucChi": 8800000.0,
     "TrangThai": 1,
-    "IDToChuc": 1004
+    "IDToChuc": 1004,
+    "taiKhoan": {
+      "idtaiKhoan": 104,
+      "tenNganHang": "Ngân Hàng DEF",
+      "tenChuTaiKhoan": "Lê Thị D",
+      "soTaiKhoan": "6677889900",
+      "swiftCode": "DEFVN012"
+    }
   },
   {
     "IDChienDich": 5,
@@ -57,7 +85,14 @@
     "ThucThu": 5800000.0,
     "ThucChi": 5900000.0,
     "TrangThai": 1,
-    "IDToChuc": 1005
+    "IDToChuc": 1005,
+    "taiKhoan": {
+      "idtaiKhoan": 105,
+      "tenNganHang": "Ngân Hàng GHI",
+      "tenChuTaiKhoan": "Đỗ Văn E",
+      "soTaiKhoan": "5566778899",
+      "swiftCode": "GHIVN345"
+    }
   },
   {
     "IDChienDich": 6,
@@ -69,7 +104,14 @@
     "ThucThu": 7200000.0,
     "ThucChi": 7400000.0,
     "TrangThai": 1,
-    "IDToChuc": 1006
+    "IDToChuc": 1006,
+    "taiKhoan": {
+      "idtaiKhoan": 106,
+      "tenNganHang": "Ngân Hàng JKL",
+      "tenChuTaiKhoan": "Ngô Thị F",
+      "soTaiKhoan": "3344556677",
+      "swiftCode": "JKLVN678"
+    }
   },
   {
     "IDChienDich": 7,
@@ -81,7 +123,14 @@
     "ThucThu": 8000000.0,
     "ThucChi": 8100000.0,
     "TrangThai": 1,
-    "IDToChuc": 1007
+    "IDToChuc": 1007,
+    "taiKhoan": {
+      "idtaiKhoan": 107,
+      "tenNganHang": "Ngân Hàng MNP",
+      "tenChuTaiKhoan": "Hà Văn G",
+      "soTaiKhoan": "9988776655",
+      "swiftCode": "MNPVN901"
+    }
   },
   {
     "IDChienDich": 8,
@@ -93,7 +142,14 @@
     "ThucThu": 7600000.0,
     "ThucChi": 7700000.0,
     "TrangThai": 1,
-    "IDToChuc": 1008
+    "IDToChuc": 1008,
+    "taiKhoan": {
+      "idtaiKhoan": 108,
+      "tenNganHang": "Ngân Hàng QRS",
+      "tenChuTaiKhoan": "Phùng Thị H",
+      "soTaiKhoan": "7766554433",
+      "swiftCode": "QRSVN234"
+    }
   },
   {
     "IDChienDich": 9,
@@ -105,7 +161,14 @@
     "ThucThu": 8300000.0,
     "ThucChi": 8400000.0,
     "TrangThai": 1,
-    "IDToChuc": 1009
+    "IDToChuc": 1009,
+    "taiKhoan": {
+      "idtaiKhoan": 109,
+      "tenNganHang": "Ngân Hàng TUV",
+      "tenChuTaiKhoan": "Lý Văn I",
+      "soTaiKhoan": "1122112233",
+      "swiftCode": "TUVVN567"
+    }
   },
   {
     "IDChienDich": 10,
@@ -117,6 +180,13 @@
     "ThucThu": 8600000.0,
     "ThucChi": 8700000.0,
     "TrangThai": 1,
-    "IDToChuc": 1010
+    "IDToChuc": 1010,
+    "taiKhoan": {
+      "idtaiKhoan": 110,
+      "tenNganHang": "Ngân Hàng WXY",
+      "tenChuTaiKhoan": "Mai Thị J",
+      "soTaiKhoan": "3344112233",
+      "swiftCode": "WXYVN890"
+    }
   }
 ]

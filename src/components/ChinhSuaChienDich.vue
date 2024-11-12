@@ -62,7 +62,7 @@
       <!-- Trạng thái -->
       <div v-if="titleProp !== 'Thêm mới'">
         <label for="trang-thai">Trạng thái:</label>
-        <select id="trang-thai">
+        <select id="trang-thai" v-model="chienDich.trangThai">
           <option value="0">Tạo mới</option>
           <option value="1">Đang hoạt động</option>
           <option value="2">Đã hủy</option>
@@ -74,6 +74,7 @@
 </template>
 
 <script>
+import { formatDate } from "@/services/util_service";
 export default {
   name: "ChinhSuaChienDich",
   props: ["chienDichProp", "titleProp"],
@@ -85,9 +86,11 @@ export default {
     };
   },
   mounted() {
-    this.chienDich = JSON.parse(JSON.stringify(this.chienDichProp));
-    this.title = `${this.titleProp}`;
     if (this.titleProp !== "Thêm mới") {
+      this.title = `${this.titleProp}`;
+      this.chienDich = JSON.parse(JSON.stringify(this.chienDichProp));
+      this.chienDich.ngayBatDau = formatDate(this.chienDich.ngayBatDau);
+      this.chienDich.ngayKetThuc = formatDate(this.chienDich.ngayKetThuc);
       this.taiKhoan = this.chienDich.taiKhoan;
     }
   },
@@ -109,10 +112,14 @@ export default {
     },
     async themMoiChienDich() {
       this.chienDich.taiKhoan = this.taiKhoan;
-      console.log(JSON.stringify(this.chienDich));
       this.$emit("themMoiChienDich", this.chienDich);
     },
-    async chinhSuaChienDich() {},
+    async chinhSuaChienDich() {
+      this.chienDich.taiKhoan = this.taiKhoan;
+      this.chienDich.ngayBatDau = formatDate(this.chienDich.ngayBatDau);
+      this.chienDich.ngayKetThuc = formatDate(this.chienDich.ngayKetThuc);
+      this.$emit("chinhSuaChienDich", this.chienDich);
+    },
   },
 };
 </script>

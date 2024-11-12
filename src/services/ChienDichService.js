@@ -39,21 +39,24 @@ const getDanhSachChienDich = async () => {
   try {
     const response = await apiClient.get(url);
     if (response.status == 200) {
-      return response.data.map(
+      const data = response.data.map(
         (item) =>
           new ChienDich({
-            idChienDich: item.IDChienDich,
-            ten: item.Ten,
-            noiDung: item.NoiDung,
-            ngayBatDau: item.NgayBatDau,
-            ngayKetThuc: item.NgayKetThuc,
-            nganSachDuKien: item.NganSachDuKien,
-            thucThu: item.ThucThu,
-            thucChi: item.ThucChi,
-            trangThai: item.TrangThai,
-            idToChuc: item.IDToChuc,
+            idChienDich: item.idChienDich,
+            ten: item.ten,
+            noiDung: item.noiDung,
+            ngayBatDau: item.ngayBatDau,
+            ngayKetThuc: item.ngayKetThuc,
+            nganSachDuKien: item.nganSachDuKien,
+            thucThu: item.thucThu,
+            thucChi: item.thucChi,
+            trangThai: item.trangThai,
+            idToChuc: item.idToChuc,
+            taiKhoan: item.taiKhoan,
           })
       );
+      console.log(`data x = ${JSON.stringify(data)}`);
+      return data;
     } else {
       return [];
     }
@@ -76,8 +79,23 @@ const themMoiChienDich = async (chienDich) => {
   }
 };
 
+const chinhSuaChienDich = async (chienDich) => {
+  const url = `/ChienDich/${chienDich.idChienDich}`;
+  try {
+    const response = await apiClient.put(url, chienDich);
+    if (response.status == 200) {
+      return true;
+    } else {
+      return false;
+    }
+  } catch (error) {
+    throw error;
+  }
+};
+
 export default {
   getDanhSachChienDich_Sample,
   getDanhSachChienDich,
   themMoiChienDich,
+  chinhSuaChienDich,
 };
