@@ -39,7 +39,7 @@
         </div>
         <div class="upload-hinh-anh-container">
           <input class="input-upload" type="file" @change="handleFileUpload" />
-          <button @click.prevent="uploadImage">Upload Image</button>
+          <button @click.prevent="uploadImage">Tải lên</button>
         </div>
       </div>
     </template>

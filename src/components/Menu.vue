@@ -34,7 +34,7 @@ export default {
         {
           title: "Đóng góp",
           icon: "fa-solid fa-hand-holding-hand",
-          path: "#",
+          path: "/dong-gop",
         },
         {
           title: "Quản lý chiến dịch",
@@ -59,7 +59,7 @@ export default {
         {
           title: "Đăng xuất",
           icon: "fa-solid fa-right-from-bracket",
-          path: "#",
+          path: "/dang-nhap",
         },
       ],
       currentPath: null,

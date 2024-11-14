@@ -55,7 +55,6 @@ const getDanhSachChienDich = async () => {
             taiKhoan: item.taiKhoan,
           })
       );
-      console.log(`data x = ${JSON.stringify(data)}`);
       return data;
     } else {
       return [];

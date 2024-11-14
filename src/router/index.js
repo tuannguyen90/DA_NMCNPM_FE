@@ -6,6 +6,7 @@ import RegisterPage from "@/pages/RegisterPage.vue";
 import TheoDoiBaoCaoPage from "@/pages/TheoDoiBaoCaoPage.vue";
 import QuanLyChienDichPage from "@/pages/QuanLyChienDichPage.vue";
 import XacThucGiayPhepPage from "@/pages/XacThucGiayPhepPage.vue";
+import DongGopPage from "@/pages/DongGopPage.vue";
 
 const routerHistory = createWebHistory();
 
@@ -31,6 +32,11 @@ const router = createRouter({
       path: "/theo-doi-bao-cao",
       name: "TheoDoiBaoCaoPage",
       component: TheoDoiBaoCaoPage,
+    },
+    {
+      path: "/dong-gop",
+      name: "DongGopPage",
+      component: DongGopPage,
     },
     {
       path: "/quan-ly-chien-dich",
