@@ -56,11 +56,17 @@ const loginAPI = async (email, password) => {
     });
 
     if (response.status == 200) {
-      return response.data.token;
+      return {
+        user_id: response.data.nguoiDungId,
+        user_type: response.data.loai,
+        user_token: response.data.token,
+      };
     } else {
       return null;
     }
   } catch (error) {
+    console.log(`loi : ${error}`);
+
     throw error;
   }
 };
@@ -72,7 +78,7 @@ const getPaperAPI = async () => {
 
   // endpoint
   // const endpoint = `/NguoiDung/${userId}/downloadPaper`;
-  const endpoint = `/NguoiDung/1040/downloadPaper`;
+  const endpoint = `/NguoiDung/${userId}/downloadPaper`;
 
   // Gọi API
   try {
@@ -100,7 +106,7 @@ const submitPaperAPI = async (file) => {
 
   // endpoint
   // const endpoint = `/NguoiDung/${userId}/submitPaper`;
-  const endpoint = `/NguoiDung/1040/submitPaper`;
+  const endpoint = `/NguoiDung/submitPaper`;
 
   // Gọi API
   try {

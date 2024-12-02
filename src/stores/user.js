@@ -5,7 +5,9 @@ export const useUserStore = defineStore("user", {
     email: localStorage.getItem("email") || "",
     ten: localStorage.getItem("ten") || "",
     token: localStorage.getItem("token") || "",
-    userId: localStorage.getItem("user-id") || "",
+    userId: localStorage.getItem("user_id") || "",
+    userType: localStorage.getItem("user_type") || "",
+    menu: JSON.parse(localStorage.getItem("menu")) || [],
   }),
   actions: {
     setEmail(email) {
@@ -22,7 +24,15 @@ export const useUserStore = defineStore("user", {
     },
     setUserId(userId) {
       this.userId = userId;
-      localStorage.setItem("user-id");
+      localStorage.setItem("user_id", userId);
+    },
+    setUserType(userType) {
+      this.userType = userType;
+      localStorage.setItem("user_type", userType);
+    },
+    setMenu(menu) {
+      this.menu = menu;
+      localStorage.setItem("menu", JSON.stringify(menu));
     },
   },
 });

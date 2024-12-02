@@ -20,48 +20,13 @@
 
 <script>
 import router from "@/router";
+import { useUserStore } from "@/stores/user";
 
 export default {
   name: "Menu",
   data() {
     return {
-      menuItems: [
-        {
-          title: "Theo dõi báo cáo",
-          icon: "fa-solid fa-house",
-          path: "/theo-doi-bao-cao",
-        },
-        {
-          title: "Đóng góp",
-          icon: "fa-solid fa-hand-holding-hand",
-          path: "/dong-gop",
-        },
-        {
-          title: "Quản lý chiến dịch",
-          icon: "fa-solid fa-paper-plane",
-          path: "/quan-ly-chien-dich",
-        },
-        {
-          title: "Bản đồ",
-          icon: "fa-solid fa-map",
-          path: "#",
-        },
-        {
-          title: "Bản tin",
-          icon: "fa-solid fa-square-rss",
-          path: "#",
-        },
-        {
-          title: "Xác thực giấy phép",
-          icon: "fa-solid fa-certificate",
-          path: "/xac-thuc-giay-phep",
-        },
-        {
-          title: "Đăng xuất",
-          icon: "fa-solid fa-right-from-bracket",
-          path: "/dang-nhap",
-        },
-      ],
+      menuItems: useUserStore().menu,
       currentPath: null,
     };
   },

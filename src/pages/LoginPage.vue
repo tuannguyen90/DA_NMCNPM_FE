@@ -57,6 +57,13 @@ import router from "@/router";
 import authService from "@/services/authService";
 import { useUserStore } from "@/stores/user";
 
+import {
+  NguoiDongGopMenu,
+  NguoiNhanHoTroMenu,
+  ToChucTuThienMenu,
+  QuanTriHeThongMenu,
+} from "@/models/Constants";
+
 export default {
   name: "LoginPage",
   data() {
@@ -70,16 +77,33 @@ export default {
   methods: {
     async login() {
       try {
-        const token = await authService.loginAPI(this.email, this.password);
-        if (token != null) {
+        const result = await authService.loginAPI(this.email, this.password);
+        if (result != null) {
           const userStore = useUserStore();
-          userStore.setToken(token);
+          userStore.setToken(result.user_token);
+          userStore.setUserId(result.user_id);
+          userStore.setUserType(result.user_type);
+          switch (result.user_type) {
+            case 0:
+              userStore.setMenu(QuanTriHeThongMenu);
+            case 1:
+              userStore.setMenu(NguoiDongGopMenu);
+              break;
+            case 2:
+              userStore.setMenu(NguoiNhanHoTroMenu);
+              break;
+            case 3:
+              userStore.setMenu(ToChucTuThienMenu);
+              break;
+          }
+
           router.push("/theo-doi-bao-cao");
         } else {
-          this.errorMsg = "Vui lòng kiểm tra lại email, mật khẩu.";
+          this.errorMsg = "Vui lòng kiểm tra lại email, mật khẩu 1.";
         }
       } catch (err) {
-        this.errorMsg = "Vui lòng kiểm tra lại email, mật khẩu.";
+        this.errorMsg = "Vui lòng kiểm tra lại email, mật khẩu 2.";
+        console.log(`error 2: ${err}`);
       }
     },
     openRegisterPage() {

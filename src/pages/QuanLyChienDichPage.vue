@@ -76,6 +76,8 @@ export default {
       this.secondaryTitle = "Thêm mới";
     },
     async themChienDich(chienDich) {
+      console.log("them moi");
+
       try {
         const isSuccess = await chienDichService.themMoiChienDich(chienDich);
         if (isSuccess) {
@@ -86,6 +88,7 @@ export default {
       } catch (error) {}
     },
     async chinhSuaChienDich(chienDich) {
+      console.log("chinh sua");
       try {
         const isSuccess = await chienDichService.chinhSuaChienDich(chienDich);
         if (isSuccess) {

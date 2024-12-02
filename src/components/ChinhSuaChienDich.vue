@@ -104,6 +104,8 @@ export default {
   },
   methods: {
     async onSubmit() {
+      console.log(`onsubmit ='${this.title}'`);
+
       if (this.title === "Thêm mới") {
         this.themMoiChienDich();
       } else {
