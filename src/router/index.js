@@ -8,6 +8,7 @@ import QuanLyChienDichPage from "@/pages/QuanLyChienDichPage.vue";
 import XacThucGiayPhepPage from "@/pages/XacThucGiayPhepPage.vue";
 import DongGopPage from "@/pages/DongGopPage.vue";
 import MapsPage from "@/pages/MapsPage.vue";
+import BanTinPage from "@/pages/BanTinPage.vue";
 
 const routerHistory = createWebHistory();
 
@@ -53,6 +54,11 @@ const router = createRouter({
       path: "/xac-thuc-giay-phep",
       name: "XacThucGiayPhepPage",
       component: XacThucGiayPhepPage,
+    },
+    {
+      path: "/ban-tin",
+      name: "BanTinPage",
+      component: BanTinPage,
     },
   ],
 });

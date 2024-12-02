@@ -16,6 +16,7 @@
       <!-- Danh sách chiến dịch -->
       <DanhSachChienDich
         :danhSachChienDich="danhSachChienDich"
+        :can-edit-prop="true"
         @on-select="onSelectChienDich"
       />
 

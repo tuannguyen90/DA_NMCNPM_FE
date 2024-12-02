@@ -17,7 +17,7 @@ export const NguoiDongGopMenu = [
   {
     title: "Bản tin",
     icon: "fa-solid fa-square-rss",
-    path: "#",
+    path: "/ban-tin",
   },
   {
     title: "Đăng xuất",
@@ -53,7 +53,7 @@ export const ToChucTuThienMenu = [
   {
     title: "Bản tin",
     icon: "fa-solid fa-square-rss",
-    path: "#",
+    path: "/ban-tin",
   },
   {
     title: "Xác thực giấy phép",
@@ -81,7 +81,7 @@ export const QuanTriHeThongMenu = [
   {
     title: "Bản tin",
     icon: "fa-solid fa-square-rss",
-    path: "#",
+    path: "/ban-tin",
   },
   {
     title: "Đăng xuất",

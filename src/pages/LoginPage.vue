@@ -86,6 +86,7 @@ export default {
           switch (result.user_type) {
             case 0:
               userStore.setMenu(QuanTriHeThongMenu);
+              break;
             case 1:
               userStore.setMenu(NguoiDongGopMenu);
               break;

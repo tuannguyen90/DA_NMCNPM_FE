@@ -105,7 +105,7 @@ export default {
   height: 80%;
   width: 80%;
   background-color: white;
-  padding: 50px;
+  padding: 20px;
   overflow-y: scroll;
 }
 </style>

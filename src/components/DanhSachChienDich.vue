@@ -8,14 +8,22 @@
         </div>
         <div class="item-content">
           <!-- Title -->
-          <div class="item-title">
+          <div v-if="canEditProp == true" class="item-title">
+            {{ chienDich.ten }}
+          </div>
+          <div
+            v-else
+            class="item-title"
+            @click="selectItem(chienDich)"
+            style="cursor: pointer; color: blue"
+          >
             {{ chienDich.ten }}
           </div>
           <!-- Content -->
           <div class="item-desc">{{ chienDich.noiDung }}</div>
 
           <!-- Buttons -->
-          <div class="buttons">
+          <div v-if="canEditProp == true" class="buttons">
             <!-- Chỉnh sửa -->
             <div
               style="margin-right: 16px"
@@ -24,9 +32,9 @@
               <button>Chỉnh sửa</button>
             </div>
             <!-- Xóa -->
-            <div @click.prevent="">
+            <!-- <div @click.prevent="">
               <button>Xóa</button>
-            </div>
+            </div> -->
           </div>
         </div>
         <!-- Trailing -->
@@ -39,7 +47,7 @@
 <script>
 export default {
   name: "DanhSachChienDich",
-  props: ["danhSachChienDich"],
+  props: ["danhSachChienDich", "canEditProp"],
   methods: {
     selectItem(chienDich) {
       this.$emit("on-select", chienDich);

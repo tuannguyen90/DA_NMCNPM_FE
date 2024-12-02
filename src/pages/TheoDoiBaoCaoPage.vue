@@ -10,6 +10,7 @@
       <!-- Danh sách chiến dịch -->
       <DanhSachChienDich
         :danhSachChienDich="danhSachChienDich"
+        :can-edit-props="false"
         @on-select="onSelectChienDich"
       />
     </template>
@@ -50,8 +51,7 @@ export default {
   methods: {
     async getDanhSachChienDich() {
       try {
-        this.danhSachChienDich =
-          await chienDichService.getDanhSachChienDich_Sample();
+        this.danhSachChienDich = await chienDichService.getDanhSachChienDich();
       } catch (error) {
         console.log(`Lỗi tải danh sách chiến dịch (sample): ${error}`);
       }
