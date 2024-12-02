@@ -17,7 +17,14 @@
       <DanhSachChienDich
         :danhSachChienDich="danhSachChienDich"
         @on-select="onSelectChienDich"
-    /></template>
+      />
+
+      <!-- Thêm mới chiến dịch -->
+      <div class="modal" v-if="isThemChienDichModalOpen">
+        <span class="close" @click="closeThemChienDichModal">&times;</span>
+        <ThemMoiChienDich @ThemMoiThanhCong="onThemMoiThanhCong" />
+      </div>
+    </template>
 
     <!-- Secondary -->
     <template v-slot:secondary>
@@ -25,8 +32,7 @@
         v-if="secondaryTitle"
         :titleProp="secondaryTitle"
         :chienDichProp="chienDich"
-        @themMoiChienDich="themChienDich"
-        @chinhSuaChienDich="chinhSuaChienDich"
+        @ChinhSuaChienDichThanhCong="onChinhSuaThanhCong"
       />
     </template>
   </HomeLayout>
@@ -37,6 +43,7 @@ import HomeLayout from "@/components/HomeLayout.vue";
 import Header from "@/components/Header.vue";
 import DanhSachChienDich from "@/components/DanhSachChienDich.vue";
 import ChinhSuaChienDich from "@/components/ChinhSuaChienDich.vue";
+import ThemMoiChienDich from "@/components/ThemMoiChienDich.vue";
 
 import chienDichService from "@/services/ChienDichService";
 
@@ -46,6 +53,7 @@ export default {
     HomeLayout,
     Header,
     DanhSachChienDich,
+    ThemMoiChienDich,
     ChinhSuaChienDich,
   },
   data() {
@@ -53,6 +61,7 @@ export default {
       danhSachChienDich: [],
       chienDich: {},
       secondaryTitle: "",
+      isThemChienDichModalOpen: false,
     };
   },
   mounted() {
@@ -72,31 +81,17 @@ export default {
       this.chienDich = chienDich;
     },
     onThemMoiBtnClicked() {
-      this.chienDich = {};
-      this.secondaryTitle = "Thêm mới";
+      this.isThemChienDichModalOpen = true;
     },
-    async themChienDich(chienDich) {
-      console.log("them moi");
-
-      try {
-        const isSuccess = await chienDichService.themMoiChienDich(chienDich);
-        if (isSuccess) {
-          alert("Thêm mới thành công!");
-        } else {
-          alert("Thêm mới thất bại!");
-        }
-      } catch (error) {}
+    closeThemChienDichModal() {
+      this.isThemChienDichModalOpen = false;
     },
-    async chinhSuaChienDich(chienDich) {
-      console.log("chinh sua");
-      try {
-        const isSuccess = await chienDichService.chinhSuaChienDich(chienDich);
-        if (isSuccess) {
-          alert("Chỉnh sửa thành công!");
-        } else {
-          alert("Chỉnh sửa thất bại!");
-        }
-      } catch (error) {}
+    onThemMoiThanhCong() {
+      this.isThemChienDichModalOpen = false;
+      this.getDanhSachChienDich();
+    },
+    async onChinhSuaThanhCong() {
+      this.getDanhSachChienDich();
     },
   },
 };
@@ -109,5 +104,31 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+.modal {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+  z-index: 1000;
+}
+.modal-content {
+  max-width: 80%;
+  max-height: 80%;
+}
+
+.close {
+  position: absolute;
+  top: 10px;
+  right: 20px;
+  padding: 4px;
+  font-size: 50px;
+  color: white;
+  cursor: pointer;
 }
 </style>

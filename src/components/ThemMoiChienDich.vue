@@ -1,14 +1,10 @@
 <template>
-  <div class="chinh-sua-chien-dich-container">
+  <div class="them-moi-chien-dich-container">
     <!-- Create/Edit form -->
     <form @submit.prevent="onSubmit">
       <!-- Title -->
-      <div class="chinh-sua-title">{{ title }}</div>
-
-      <!-- Save button -->
-      <button v-if="titleProp !== 'Thêm mới'" class="save-btn" type="submit">
-        Lưu chỉnh sửa
-      </button>
+      <div class="them-moi-chien-dich-title">Thêm mới</div>
+      <button class="save-btn" type="submit">Thêm mới</button>
 
       <!-- Tên chiến dịch -->
       <label for="ten-chien-dich">Tên chiến dịch:</label>
@@ -71,46 +67,28 @@
 
 <script>
 import ChienDichService from "@/services/ChienDichService";
-import { formatDate } from "@/services/util_service";
+
 export default {
-  name: "ChinhSuaChienDich",
-  props: ["chienDichProp", "titleProp"],
+  name: "ThemMoiChienDich",
   data() {
     return {
       chienDich: {},
-      title: "",
       taiKhoan: {},
     };
-  },
-  mounted() {
-    this.title = `${this.titleProp}`;
-    this.chienDich = JSON.parse(JSON.stringify(this.chienDichProp));
-    this.chienDich.ngayBatDau = formatDate(this.chienDich.ngayBatDau);
-    this.chienDich.ngayKetThuc = formatDate(this.chienDich.ngayKetThuc);
-    this.taiKhoan = this.chienDich.taiKhoan;
-  },
-  watch: {
-    chienDichProp(newValue) {
-      this.chienDich = JSON.parse(JSON.stringify(newValue));
-    },
-    titleProp(newValue) {
-      this.title = `${newValue}`;
-    },
   },
   methods: {
     async onSubmit() {
       this.chienDich.taiKhoan = this.taiKhoan;
-      this.chienDich.ngayBatDau = formatDate(this.chienDich.ngayBatDau);
-      this.chienDich.ngayKetThuc = formatDate(this.chienDich.ngayKetThuc);
+
       try {
-        const isSuccess = await ChienDichService.chinhSuaChienDich(
+        const isSuccess = await ChienDichService.themMoiChienDich(
           this.chienDich
         );
         if (isSuccess) {
-          alert("Chỉnh sửa thành công!");
-          this.$emit("ChinhSuaChienDichThanhCong");
+          alert("Thêm mới thành công!");
+          this.$emit("ThemMoiThanhCong");
         } else {
-          alert("Chỉnh sửa thất bại!");
+          alert("Thêm mới thất bại.");
         }
       } catch (error) {}
     },
@@ -119,22 +97,15 @@ export default {
 </script>
 
 <style scoped>
-.chinh-sua-title {
+.them-moi-chien-dich-title {
   font-size: xx-large;
   font-weight: 700;
 }
-.chinh-sua-chien-dich-container {
-  width: 100%;
-  height: 100%;
-  padding: 20px;
-}
-label {
-  margin-top: 8px;
-}
-input {
-  width: 100%;
-}
-.save-btn {
-  margin-top: 16px;
+.them-moi-chien-dich-container {
+  height: 80%;
+  width: 80%;
+  background-color: white;
+  padding: 50px;
+  overflow-y: scroll;
 }
 </style>

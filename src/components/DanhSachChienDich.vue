@@ -2,17 +2,32 @@
   <div v-if="danhSachChienDich.length">
     <ul class="container">
       <li v-for="chienDich in danhSachChienDich" class="item">
-        <div class="item-leading">Icon</div>
+        <!-- Leading -->
+        <div class="item-leading">
+          <i class="fa-solid fa-paper-plane fa-xl"></i>
+        </div>
         <div class="item-content">
-          <!-- Leading -->
-          <a
-            class="item-title"
-            href="#"
-            @click.prevent="selectItem(chienDich)"
-            >{{ chienDich.ten }}</a
-          >
+          <!-- Title -->
+          <div class="item-title">
+            {{ chienDich.ten }}
+          </div>
           <!-- Content -->
           <div class="item-desc">{{ chienDich.noiDung }}</div>
+
+          <!-- Buttons -->
+          <div class="buttons">
+            <!-- Chỉnh sửa -->
+            <div
+              style="margin-right: 16px"
+              @click.prevent="selectItem(chienDich)"
+            >
+              <button>Chỉnh sửa</button>
+            </div>
+            <!-- Xóa -->
+            <div @click.prevent="">
+              <button>Xóa</button>
+            </div>
+          </div>
         </div>
         <!-- Trailing -->
         <div class="item-trailing">{{ chienDich.trangThai }}</div>
@@ -69,17 +84,27 @@ export default {
 
 .item-title {
   font-weight: 700;
+  font-size: x-large;
 }
 
 .item-desc {
-  font-size: medium;
-  font-style: italic;
+  margin-top: 8px;
+  font-size: large;
 }
 
 .item-trailing {
   min-width: 80px;
   display: flex;
   justify-content: center;
+  align-items: center;
+}
+.buttons {
+  height: 100%;
+  width: 100%;
+  margin-top: 8px;
+  display: flex;
+  flex-direction: row;
+  justify-content: start;
   align-items: center;
 }
 </style>
