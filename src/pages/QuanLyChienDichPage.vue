@@ -42,7 +42,14 @@
       <DanhSachDongGop
         v-if="secondaryTitle == 'Danh sách đóng góp'"
         :chienDichProp="chienDich"
+        @moHinhAnhDongGop="moHinhAnhDongGop"
       />
+
+      <!-- Hình ảnh đóng góp -->
+      <div class="modal" v-if="hinhAnhDongGop">
+        <span class="close" @click="closeHinhAnhDongGopModal">&times;</span>
+        <img :src="hinhAnhDongGop" alt="hinh-anh-dong-gop" />
+      </div>
     </template>
   </HomeLayout>
 </template>
@@ -56,6 +63,7 @@ import ThemMoiChienDich from "@/components/ThemMoiChienDich.vue";
 import DanhSachDongGop from "@/components/DanhSachDongGop.vue";
 
 import chienDichService from "@/services/ChienDichService";
+import dongGopService from "@/services/dongGopService";
 
 import { useSignalR } from "@dreamonkey/vue-signalr";
 
@@ -90,6 +98,7 @@ export default {
       chienDich: {},
       secondaryTitle: "",
       isThemChienDichModalOpen: false,
+      hinhAnhDongGop: null,
     };
   },
   mounted() {
@@ -131,6 +140,19 @@ export default {
     xemDanhSachDongGop(chienDich) {
       this.chienDich = chienDich;
       this.secondaryTitle = "Danh sách đóng góp";
+    },
+    async moHinhAnhDongGop(idDongGop) {
+      try {
+        const dongGop = await dongGopService.getDongGopById(idDongGop);
+        if (dongGop != null) {
+          this.hinhAnhDongGop = `data:image/jpeg;base64,${dongGop.hinhAnh}`;
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    closeHinhAnhDongGopModal() {
+      this.hinhAnhDongGop = null;
     },
   },
 };

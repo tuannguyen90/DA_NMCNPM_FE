@@ -28,7 +28,39 @@ const getDanhSachDongGopByChienDich = async (idChienDich) => {
   }
 };
 
+const getDongGopById = async (idDongGop) => {
+  const url = `/DongGops/${idDongGop}`;
+  try {
+    const response = await apiClient.get(url);
+    if (response.status == 200) {
+      return response.data;
+    } else {
+      return null;
+    }
+  } catch (error) {
+    throw error;
+  }
+};
+
+const verifyDongGop = async (idDongGop) => {
+  const url = `/DongGops/verifyDongGop`;
+  try {
+    const response = await apiClient.put(url, {
+      idDongGop: idDongGop,
+    });
+    if (response.status == 200) {
+      return true;
+    } else {
+      return false;
+    }
+  } catch (error) {
+    throw error;
+  }
+};
+
 export default {
   taoDongGop,
   getDanhSachDongGopByChienDich,
+  getDongGopById,
+  verifyDongGop,
 };
