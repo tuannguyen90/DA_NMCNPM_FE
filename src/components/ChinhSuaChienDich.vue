@@ -3,7 +3,7 @@
     <!-- Create/Edit form -->
     <form @submit.prevent="onSubmit">
       <!-- Title -->
-      <div class="chinh-sua-title">{{ title }}</div>
+      <div class="chinh-sua-title">{{ titleProp }}</div>
 
       <!-- Save button -->
       <button v-if="titleProp !== 'Thêm mới'" class="save-btn" type="submit">
@@ -59,7 +59,7 @@
       <div v-if="titleProp !== 'Thêm mới'">
         <label for="trang-thai">Trạng thái:</label>
         <select id="trang-thai" v-model="chienDich.trangThai">
-          <option value="0">Tạo mới</option>
+          <option value="0">Tạm dừng</option>
           <option value="1">Đang hoạt động</option>
           <option value="2">Đã hủy</option>
           <option value="3">Đã hoàn tất</option>
@@ -112,7 +112,9 @@ export default {
         } else {
           alert("Chỉnh sửa thất bại!");
         }
-      } catch (error) {}
+      } catch (error) {
+        alert("Không thể chỉnh sửa khi chiến dịch đã hủy hoặc kết thúc.");
+      }
     },
   },
 };

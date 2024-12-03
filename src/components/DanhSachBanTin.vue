@@ -2,7 +2,9 @@
   <div class="danh-sach-ban-tin">
     <div v-for="banTin in danhSachBanTin" class="item">
       <!-- Leading -->
-      <div class="item-leading"></div>
+      <div class="item-leading">
+        <i class="fa-solid fa-newspaper fa-2xl"></i>
+      </div>
 
       <!-- Content -->
       <div class="item-content">

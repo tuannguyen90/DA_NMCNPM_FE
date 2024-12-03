@@ -11,7 +11,7 @@
       <DanhSachChienDich
         :danhSachChienDich="danhSachChienDich"
         :can-edit-props="false"
-        @on-select="onSelectChienDich"
+        @chonChienDich="chonChienDich"
       />
     </template>
 
@@ -31,6 +31,8 @@ import DanhSachChienDich from "@/components/DanhSachChienDich.vue";
 import ChiTietChienDich from "@/components/ChiTietChienDich.vue";
 import chienDichService from "@/services/ChienDichService";
 
+import { useSignalR } from "@dreamonkey/vue-signalr";
+
 export default {
   name: "TheoDoiBaoCaoPage",
   components: {
@@ -38,6 +40,14 @@ export default {
     Header,
     DanhSachChienDich,
     ChiTietChienDich,
+  },
+  setup() {
+    // Nhận thông tin real-time
+    const signalR = useSignalR();
+
+    return {
+      signalR,
+    };
   },
   data() {
     return {
@@ -47,16 +57,21 @@ export default {
   },
   mounted() {
     this.getDanhSachChienDich();
+    this.signalR.on("ReceiveMessage", async (user, message) => {
+      await this.getDanhSachChienDich();
+    });
   },
   methods: {
     async getDanhSachChienDich() {
       try {
-        this.danhSachChienDich = await chienDichService.getDanhSachChienDich();
+        // Chỉ lấy chiến dịch đang active
+        const result = await chienDichService.getDanhSachChienDich();
+        this.danhSachChienDich = result.filter((cd) => cd.trangThai == 1);
       } catch (error) {
         console.log(`Lỗi tải danh sách chiến dịch (sample): ${error}`);
       }
     },
-    onSelectChienDich(chienDich) {
+    chonChienDich(chienDich) {
       console.log(chienDich);
       this.chienDich = chienDich;
     },

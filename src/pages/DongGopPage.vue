@@ -16,7 +16,7 @@
       <!-- Danh sách chiến dịch -->
       <DanhSachChienDich
         :danhSachChienDich="danhSachChienDich"
-        @on-select="onSelectChienDich"
+        @chonChienDich="chonChienDich"
       />
     </template>
 
@@ -56,12 +56,14 @@ export default {
   methods: {
     async getDanhSachChienDich() {
       try {
-        this.danhSachChienDich = await chienDichService.getDanhSachChienDich();
+        // Chỉ lấy các chiến dịch đang hoạt động
+        const result = await chienDichService.getDanhSachChienDich();
+        this.danhSachChienDich = result.filter((cd) => cd.trangThai == 1);
       } catch (error) {
         console.log(`Lỗi tải danh sách chiến dịch (sample): ${error}`);
       }
     },
-    onSelectChienDich(chienDich) {
+    chonChienDich(chienDich) {
       this.chienDichDuocChon = chienDich;
       this.showSecondary = true;
     },

@@ -14,7 +14,7 @@
           <div
             v-else
             class="item-title"
-            @click="selectItem(chienDich)"
+            @click="chonChienDich(chienDich)"
             style="cursor: pointer; color: blue"
           >
             {{ chienDich.ten }}
@@ -27,10 +27,19 @@
             <!-- Chỉnh sửa -->
             <div
               style="margin-right: 16px"
-              @click.prevent="selectItem(chienDich)"
+              @click.prevent="chinhSua(chienDich)"
             >
               <button>Chỉnh sửa</button>
             </div>
+
+            <!-- Xem danh sách đóng góp -->
+            <div
+              style="margin-right: 16px"
+              @click.prevent="xemDanhSachDongGop(chienDich)"
+            >
+              <button>Danh sách đóng góp</button>
+            </div>
+
             <!-- Xóa -->
             <!-- <div @click.prevent="">
               <button>Xóa</button>
@@ -38,19 +47,29 @@
           </div>
         </div>
         <!-- Trailing -->
-        <div class="item-trailing">{{ chienDich.trangThai }}</div>
+        <div class="item-trailing">
+          <TrangThaiChienDich :TrangThai="chienDich.trangThai" />
+        </div>
       </li>
     </ul>
   </div>
 </template>
 
 <script>
+import TrangThaiChienDich from "./TrangThaiChienDich.vue";
 export default {
   name: "DanhSachChienDich",
+  components: { TrangThaiChienDich },
   props: ["danhSachChienDich", "canEditProp"],
   methods: {
-    selectItem(chienDich) {
-      this.$emit("on-select", chienDich);
+    chonChienDich(chienDich) {
+      this.$emit("chonChienDich", chienDich);
+    },
+    chinhSua(chienDich) {
+      this.$emit("chienDichDuocChonDeSua", chienDich);
+    },
+    xemDanhSachDongGop(chienDich) {
+      this.$emit("xemDanhSachDongGop", chienDich);
     },
   },
 };

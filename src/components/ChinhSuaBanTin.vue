@@ -9,15 +9,21 @@
 
       <!-- Tiêu đề bản tin -->
       <label for="tieu-de-ban-tin">Tiêu đề:</label>
-      <input type="text" id="tieu-de-ban-tin" v-model="banTin.tieuDe" />
+      <input
+        required
+        type="text"
+        id="tieu-de-ban-tin"
+        v-model="banTin.tieuDe"
+      />
 
       <!-- Nguồn -->
       <label for="nguon-ban-tin">Nguồn:</label>
-      <input type="text" id="nguon-ban-tin" v-model="banTin.nguon" />
+      <input required type="text" id="nguon-ban-tin" v-model="banTin.nguon" />
 
       <!-- Nội dung ngắn -->
       <label for="noi-dung-ngan">Tóm tắt:</label>
       <textarea
+        required
         name="noi-dung-ngan"
         id="noi-dung-ngan"
         rows="5"
@@ -27,6 +33,7 @@
       <!-- Nội dung đầy đủ -->
       <label for="noi-dung-day-du">Nội dung đầy đủ:</label>
       <textarea
+        required
         name="noi-dung-day-du"
         id="noi-dung-day-du"
         rows="5"
@@ -34,15 +41,21 @@
       ></textarea>
 
       <!-- Ngày cập nhật -->
-      <label for="ngay-cap-nhat">Ngày cập nhật:</label>
-      <input type="text" v-model="banTin.ngayCapNhat" />
+      <label for="ngay-cap-nhat">Ngày cập nhật (yyyy-mm-dd):</label>
+      <input
+        required
+        type="text"
+        v-model="banTin.ngayCapNhat"
+        placeholder="yyyy-mm-dd"
+        pattern="\d{4}-\d{2}-\d{2}"
+      />
     </form>
   </div>
 </template>
 
 <script>
-import apiClient from "@/services/api";
 import banTinService from "@/services/banTinService";
+import { formatDate } from "@/services/util_service";
 export default {
   name: "ChinhSuaBanTin",
   props: ["banTinProp"],
@@ -53,10 +66,12 @@ export default {
   },
   mounted() {
     this.banTin = this.banTinProp;
+    this.banTin.ngayCapNhat = formatDate(this.banTinProp.ngayCapNhat);
   },
   watch: {
     banTinProp(newValue) {
       this.banTin = newValue;
+      this.banTin.ngayCapNhat = formatDate(newValue.ngayCapNhat);
     },
   },
   methods: {
@@ -70,7 +85,7 @@ export default {
           alert("Cập nhật thất bại.");
         }
       } catch (error) {
-        alert("Cập nhật thất bại. Lỗi hệ thống.");
+        alert("Cập nhật thất bại. Vui lòng xem lại các thông tin.");
       }
     },
   },

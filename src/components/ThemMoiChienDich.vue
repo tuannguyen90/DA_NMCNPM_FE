@@ -50,17 +50,6 @@
       <!-- SwiftCode -->
       <label for="swift-code">Swift Code</label>
       <input type="text" id="swift-code" v-model="taiKhoan.swiftCode" />
-
-      <!-- Trạng thái -->
-      <div v-if="titleProp !== 'Thêm mới'">
-        <label for="trang-thai">Trạng thái:</label>
-        <select id="trang-thai" v-model="chienDich.trangThai">
-          <option value="0">Tạo mới</option>
-          <option value="1">Đang hoạt động</option>
-          <option value="2">Đã hủy</option>
-          <option value="3">Đã hoàn tất</option>
-        </select>
-      </div>
     </form>
   </div>
 </template>

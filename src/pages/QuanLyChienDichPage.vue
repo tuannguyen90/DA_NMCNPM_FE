@@ -17,7 +17,8 @@
       <DanhSachChienDich
         :danhSachChienDich="danhSachChienDich"
         :can-edit-prop="true"
-        @on-select="onSelectChienDich"
+        @chienDichDuocChonDeSua="chienDichDuocChonDeSua"
+        @xemDanhSachDongGop="xemDanhSachDongGop"
       />
 
       <!-- Thêm mới chiến dịch -->
@@ -29,11 +30,18 @@
 
     <!-- Secondary -->
     <template v-slot:secondary>
+      <!-- Chỉnh sửa chiến dịch -->
       <ChinhSuaChienDich
-        v-if="secondaryTitle"
+        v-if="secondaryTitle == 'Chỉnh sửa'"
         :titleProp="secondaryTitle"
         :chienDichProp="chienDich"
         @ChinhSuaChienDichThanhCong="onChinhSuaThanhCong"
+      />
+
+      <!-- Danh sách đóng góp -->
+      <DanhSachDongGop
+        v-if="secondaryTitle == 'Danh sách đóng góp'"
+        :chienDichProp="chienDich"
       />
     </template>
   </HomeLayout>
@@ -45,8 +53,13 @@ import Header from "@/components/Header.vue";
 import DanhSachChienDich from "@/components/DanhSachChienDich.vue";
 import ChinhSuaChienDich from "@/components/ChinhSuaChienDich.vue";
 import ThemMoiChienDich from "@/components/ThemMoiChienDich.vue";
+import DanhSachDongGop from "@/components/DanhSachDongGop.vue";
 
 import chienDichService from "@/services/ChienDichService";
+
+import { useSignalR } from "@dreamonkey/vue-signalr";
+
+import { useUserStore } from "@/stores/user";
 
 export default {
   name: "QuanLyChienDichPage",
@@ -56,6 +69,20 @@ export default {
     DanhSachChienDich,
     ThemMoiChienDich,
     ChinhSuaChienDich,
+    DanhSachDongGop,
+  },
+  setup() {
+    const signalR = useSignalR();
+
+    const notification = (user, message) => {
+      signalR.invoke("SendMessage", user, message).catch((err) => {
+        console.log("SignalR invocation failed:", err);
+      });
+    };
+
+    return {
+      notification,
+    };
   },
   data() {
     return {
@@ -71,15 +98,13 @@ export default {
   methods: {
     async getDanhSachChienDich() {
       try {
-        this.danhSachChienDich = await chienDichService.getDanhSachChienDich();
+        // Chỉ được lấy các chiến dịch do tổ chức quản lý
+        const userId = useUserStore().userId;
+        const result = await chienDichService.getDanhSachChienDich();
+        this.danhSachChienDich = result.filter((cd) => cd.idToChuc == userId);
       } catch (error) {
         console.log(`Lỗi tải danh sách chiến dịch (sample): ${error}`);
       }
-    },
-    onSelectChienDich(chienDich) {
-      // console.log(chienDich);
-      this.secondaryTitle = "Chỉnh sửa";
-      this.chienDich = chienDich;
     },
     onThemMoiBtnClicked() {
       this.isThemChienDichModalOpen = true;
@@ -90,9 +115,22 @@ export default {
     onThemMoiThanhCong() {
       this.isThemChienDichModalOpen = false;
       this.getDanhSachChienDich();
+      // Gửi notification
+      this.notification("Client", "Có 1 chiến dịch được tạo mới");
+    },
+    chienDichDuocChonDeSua(chienDich) {
+      // console.log(chienDich);
+      this.secondaryTitle = "Chỉnh sửa";
+      this.chienDich = chienDich;
     },
     async onChinhSuaThanhCong() {
       this.getDanhSachChienDich();
+      // Gửi notification
+      this.notification("Client", "Có 1 chiến dịch vừa được cập nhật");
+    },
+    xemDanhSachDongGop(chienDich) {
+      this.chienDich = chienDich;
+      this.secondaryTitle = "Danh sách đóng góp";
     },
   },
 };

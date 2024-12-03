@@ -97,7 +97,6 @@ export default {
               userStore.setMenu(ToChucTuThienMenu);
               break;
           }
-
           router.push("/theo-doi-bao-cao");
         } else {
           this.errorMsg = "Vui lòng kiểm tra lại email, mật khẩu 1.";
