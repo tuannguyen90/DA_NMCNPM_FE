@@ -14,7 +14,7 @@
           <div
             v-else
             class="item-title"
-            @click="chonChienDich(chienDich)"
+            @click.prevent="chonChienDich(chienDich)"
             style="cursor: pointer; color: blue"
           >
             {{ chienDich.ten }}

@@ -48,14 +48,21 @@
     <!-- Trạng thái -->
     <div class="item">
       <div class="title">Trạng thái:</div>
-      <div class="content">{{ chienDich.trangThai }}</div>
+      <div>
+        <TrangThaiChienDich :TrangThai="chienDich.trangThai" />
+      </div>
     </div>
   </div>
 </template>
 
 <script>
+import TrangThaiChienDich from "./TrangThaiChienDich.vue";
+
 export default {
   name: "ChiTietChienDich",
+  components: {
+    TrangThaiChienDich,
+  },
   props: ["chienDich"],
 };
 </script>

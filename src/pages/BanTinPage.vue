@@ -7,33 +7,29 @@
 
     <!-- Main -->
     <template v-slot:main>
-      <!-- Thêm mới button -->
-      <div class="button-container">
-        <button @click.prevent="onThemMoiBtnClicked">Thêm mới bản tin</button>
-      </div>
-
       <!-- Danh sách bản tin -->
       <DanhSachBanTin
+        :isViewModeProp="true"
         :danhSachBanTin="danhSachBanTin"
-        @chon-ban-tin-de-chinh-sua="chonBanTinDeChinhSua"
+        @chonBanTinDeXem="chonBanTinDeXem"
       />
 
-      <!-- Thêm mới bản tin Modal -->
-      <div class="modal" v-if="isThemMoiBanTinModalOpen">
-        <span class="close" @click="closeThemMoiBanTinModal">&times;</span>
-        <ThemMoiBanTin v-if="showChild" />
+      <!-- Chi tiết bản tin -->
+      <div class="modal" v-if="banTin">
+        <span class="close" @click="closeChiTietBanTin">&times;</span>
+        <div class="chi-tiet-ban-tin">
+          <span style="font-size: larger; font-weight: 700">{{
+            banTin.tieuDe
+          }}</span>
+          <br />
+          <span style="font-size: medium">{{ banTin.nguon }}</span> <br />
+          <span style="font-size: medium">{{ banTin.noiDung }}</span>
+        </div>
       </div>
     </template>
 
     <!-- Secondary -->
-    <template v-slot:secondary>
-      <!-- Chỉnh sửa bản tin -->
-      <ChinhSuaBanTin
-        :banTinProp="banTinSelected"
-        v-if="banTinSelected"
-        @capNhatThanhCong="capNhatThanhCong"
-      />
-    </template>
+    <template v-slot:secondary> </template>
   </HomeLayout>
 </template>
 
@@ -41,8 +37,6 @@
 import HomeLayout from "@/components/HomeLayout.vue";
 import Header from "@/components/Header.vue";
 import DanhSachBanTin from "@/components/DanhSachBanTin.vue";
-import ThemMoiBanTin from "@/components/ThemMoiBanTin.vue";
-import ChinhSuaBanTin from "@/components/ChinhSuaBanTin.vue";
 
 import banTinService from "@/services/banTinService";
 
@@ -51,48 +45,26 @@ export default {
   components: {
     HomeLayout,
     Header,
-    ThemMoiBanTin,
     DanhSachBanTin,
-    ChinhSuaBanTin,
   },
   data() {
     return {
       danhSachBanTin: [],
-      isThemMoiBanTinModalOpen: false,
-      showChild: false, // Để clear component
-      banTinSelected: null,
+      banTin: null,
     };
+  },
+  mounted() {
+    this.getDanhSachBanTin();
   },
   methods: {
     async getDanhSachBanTin() {
       this.danhSachBanTin = await banTinService.getDanhSachBanTin();
     },
-    onThemMoiBtnClicked() {
-      this.isThemMoiBanTinModalOpen = true;
+    chonBanTinDeXem(banTin) {
+      this.banTin = banTin;
     },
-    closeThemMoiBanTinModal() {
-      this.showChild = false;
-      setTimeout(() => {
-        this.isThemMoiBanTinModalOpen = false;
-      }, 300);
-    },
-    chonBanTinDeChinhSua(banTin) {
-      console.log(`chon: ${JSON.stringify(banTin)}`);
-      this.banTinSelected = banTin;
-    },
-    capNhatThanhCong() {
-      this.banTinSelected = null;
-      this.getDanhSachBanTin;
-    },
-  },
-  mounted() {
-    this.getDanhSachBanTin();
-  },
-  watch: {
-    isThemMoiBanTinModalOpen(val) {
-      if (val) {
-        this.showChild = true;
-      }
+    closeChiTietBanTin() {
+      this.banTin = null;
     },
   },
 };
@@ -131,5 +103,14 @@ export default {
   font-size: 50px;
   color: white;
   cursor: pointer;
+}
+
+.chi-tiet-ban-tin {
+  max-width: 1200px;
+  min-width: 800px;
+  height: 80%;
+  background-color: white;
+  padding: 20px;
+  overflow-y: auto;
 }
 </style>

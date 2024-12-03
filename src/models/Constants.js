@@ -79,9 +79,9 @@ export const QuanTriHeThongMenu = [
     path: "/ban-do",
   },
   {
-    title: "Bản tin",
+    title: "Quản lý bản tin",
     icon: "fa-solid fa-square-rss",
-    path: "/ban-tin",
+    path: "/quan-ly-ban-tin",
   },
   {
     title: "Đăng xuất",

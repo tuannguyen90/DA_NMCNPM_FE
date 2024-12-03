@@ -59,14 +59,19 @@ export default {
     this.getDanhSachChienDich();
     this.signalR.on("ReceiveMessage", async (user, message) => {
       await this.getDanhSachChienDich();
+      this.chienDich = this.danhSachChienDich.filter(
+        (cd) => cd.idChienDich == this.chienDich.idChienDich
+      )[0];
     });
   },
   methods: {
     async getDanhSachChienDich() {
       try {
-        // Chỉ lấy chiến dịch đang active
+        // Chỉ lấy chiến dịch đang active hoặc đã kết thúc
         const result = await chienDichService.getDanhSachChienDich();
-        this.danhSachChienDich = result.filter((cd) => cd.trangThai == 1);
+        this.danhSachChienDich = result.filter(
+          (cd) => cd.trangThai == 1 || cd.trangThai == 3
+        );
       } catch (error) {
         console.log(`Lỗi tải danh sách chiến dịch (sample): ${error}`);
       }

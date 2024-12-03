@@ -4,15 +4,25 @@
       <div>{{ title }}</div>
     </div>
     <div class="profile">
+      <span>{{ userEmail }}&nbsp&nbsp</span>
       <i class="fa-solid fa-user"></i>
     </div>
   </div>
 </template>
 
 <script>
+import { useUserStore } from "@/stores/user";
 export default {
   name: "Header",
   props: ["title"],
+  data() {
+    return {
+      userEmail: "",
+    };
+  },
+  mounted() {
+    this.userEmail = useUserStore().email;
+  },
 };
 </script>
 

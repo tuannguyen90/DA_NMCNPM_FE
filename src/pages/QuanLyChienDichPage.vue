@@ -135,7 +135,7 @@ export default {
     async onChinhSuaThanhCong() {
       this.getDanhSachChienDich();
       // Gửi notification
-      this.notification("Client", "Có 1 chiến dịch vừa được cập nhật");
+      this.notification("Client", "CapNhatChienDich");
     },
     xemDanhSachDongGop(chienDich) {
       this.chienDich = chienDich;

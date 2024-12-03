@@ -11,7 +11,7 @@
         <!-- Trạng thái giấy phép -->
 
         <!-- Hình ảnh giấy phép -->
-        <div>
+        <div style="cursor: pointer">
           <div>
             <span style="font-size: large; font-weight: 700"
               >Hình ảnh giấy phép:</span

@@ -39,10 +39,27 @@
 import TrangThaiDongGop from "./TrangThaiDongGop.vue";
 import dongGopService from "@/services/dongGopService";
 import Swal from "sweetalert2";
+import { useSignalR } from "@dreamonkey/vue-signalr";
 
 export default {
   name: "DanhSachDongGop",
   components: { TrangThaiDongGop },
+  setup() {
+    // Nhận thông tin real-tim
+    const signalR = useSignalR();
+
+    // Gửi thông tin
+    const notification = (user, message) => {
+      signalR.invoke("SendMessage", user, message).catch((err) => {
+        console.log("SignalR invocation failed:", err);
+      });
+    };
+
+    return {
+      signalR,
+      notification,
+    };
+  },
   props: ["chienDichProp"],
   data() {
     return {
@@ -51,6 +68,11 @@ export default {
   },
   mounted() {
     this.getDanhSachDongGop();
+    this.signalR.on("ReceiveMessage", async (user, message) => {
+      if (message == "DongGopMoi") {
+        await this.getDanhSachDongGop();
+      }
+    });
   },
   methods: {
     async getDanhSachDongGop() {
@@ -71,12 +93,14 @@ export default {
         cancelButtonText: "Hủy",
       }).then(async (result) => {
         if (result.isConfirmed) {
-          Swal.fire("Đã xác nhận!", "Bạn đã chọn 'Xác nhận'.", "info");
           // Tiến hành xác nhận
           try {
             const isSuccess = await dongGopService.verifyDongGop(iddongGop);
             if (isSuccess) {
               Swal.fire("Thành công!", "Đóng góp đã được duyệt", "success");
+              // Reset danh sach
+              this.getDanhSachDongGop();
+              this.notification("Client", "DuyetDongGop");
             } else {
               Swal.fire("Thất bại!", "Đóng góp chưa được duyệt", "error");
             }

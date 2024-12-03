@@ -65,6 +65,7 @@ export default {
     },
     chonChienDich(chienDich) {
       this.chienDichDuocChon = chienDich;
+      console.log(`chon   ddd ${chienDich.ten}`);
       this.showSecondary = true;
     },
   },

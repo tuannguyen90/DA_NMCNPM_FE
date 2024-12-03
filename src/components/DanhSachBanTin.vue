@@ -1,5 +1,31 @@
 <template>
-  <div class="danh-sach-ban-tin">
+  <div v-if="isViewModeProp" class="danh-sach-ban-tin">
+    <div
+      v-for="banTin in danhSachBanTin"
+      class="item"
+      @click="chonBanTinDeXem(banTin)"
+      style="cursor: pointer"
+    >
+      <!-- Leading -->
+      <div class="item-leading">
+        <i class="fa-solid fa-newspaper fa-2xl"></i>
+      </div>
+
+      <!-- Content -->
+      <div class="item-content">
+        <!-- Title -->
+        <div class="item-title">{{ banTin.tieuDe }}</div>
+
+        <!-- Description -->
+        <div class="item-desc">{{ banTin.noiDungNgan }}</div>
+      </div>
+
+      <!-- Trailing -->
+      <div class="item-trailing"></div>
+    </div>
+  </div>
+  <!-- Edit Mode -->
+  <div v-else class="danh-sach-ban-tin">
     <div v-for="banTin in danhSachBanTin" class="item">
       <!-- Leading -->
       <div class="item-leading">
@@ -37,7 +63,7 @@ import banTinService from "@/services/banTinService";
 
 export default {
   name: "DanhSachBanTin",
-  props: ["danhSachBanTin"],
+  props: ["danhSachBanTin", "isViewModeProp"],
   methods: {
     async getDanhSachBanTin() {
       this.danhSachBanTin = await banTinService.getDanhSachBanTin();
@@ -45,6 +71,9 @@ export default {
     },
     chonBanTinDeChinhSua(banTin) {
       this.$emit("chon-ban-tin-de-chinh-sua", banTin);
+    },
+    chonBanTinDeXem(banTin) {
+      this.$emit("chonBanTinDeXem", banTin);
     },
   },
 };

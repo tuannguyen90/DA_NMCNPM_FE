@@ -80,6 +80,7 @@ export default {
         const result = await authService.loginAPI(this.email, this.password);
         if (result != null) {
           const userStore = useUserStore();
+          userStore.setEmail(this.email);
           userStore.setToken(result.user_token);
           userStore.setUserId(result.user_id);
           userStore.setUserType(result.user_type);
