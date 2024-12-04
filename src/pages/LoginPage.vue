@@ -100,7 +100,7 @@ export default {
               userStore.setMenu(ToChucTuThienMenu);
               break;
           }
-          router.push("/theo-doi-bao-cao");
+          router.push("/trang-chu");
         } else {
           this.errorMsg = "Vui lòng kiểm tra lại email, mật khẩu.";
         }
