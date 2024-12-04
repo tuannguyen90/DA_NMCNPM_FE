@@ -35,7 +35,7 @@
 
       <!-- Ngày cập nhật -->
       <label for="ngay-cap-nhat">Ngày cập nhật:</label>
-      <input type="text" v-model="banTin.ngayCapNhat" />
+      <input type="date" v-model="banTin.ngayCapNhat" />
     </form>
   </div>
 </template>
@@ -43,6 +43,7 @@
 <script>
 import { formatDate } from "@/services/util_service";
 import banTinService from "@/services/banTinService";
+import Swal from "sweetalert2";
 
 export default {
   name: "ThemMoiBanTin",
@@ -60,7 +61,16 @@ export default {
     async onSubmit() {
       const isSuccess = await banTinService.taoBanTin(this.banTin);
       if (isSuccess) {
-        alert("Tạo bản tin thành công!");
+        Swal.fire({
+          title: "Thông báo",
+          text: "Thêm mới bản tin thành công",
+          icon: "success",
+          confirmButtonText: "OK",
+        }).then((result) => {
+          if (result.isConfirmed) {
+            this.$emit("ThemMoiThanhCong");
+          }
+        });
       } else {
         alert("Tạo bản tin thất bại!");
       }

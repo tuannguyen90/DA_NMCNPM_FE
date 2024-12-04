@@ -3,28 +3,35 @@
     <div class="auth-page-left">
       <!-- Login form -->
       <form class="login-form" @submit.prevent="login">
-        <h2>Đăng nhập</h2>
+        <h1 style="text-align: left; width: 100%">Đăng nhập</h1>
         <!-- Email -->
-        <label for="email">Email</label>
-        <input type="email" v-model="email" />
+        <label style="margin-top: 24px; margin-bottom: 4px" for="email"
+          >Email</label
+        >
+        <input id="email" type="email" v-model="email" required />
         <!-- Password -->
-        <label style="margin-top: 8px"
-          >Mật khẩu
-          <a
-            href="#"
-            style="font-size: small"
-            @click="togglePasswordVisibility"
-            class="toggle-password"
-            >{{ passwordFieldType === "password" ? "(Hiển thị)" : "(Ẩn)" }}</a
-          >
-        </label>
-        <input :type="passwordFieldType" v-model="password" />
+        <label style="margin-top: 8px; margin-bottom: 4px">Mật khẩu </label>
+        <div class="password-wrapper">
+          <input
+            id="mat-khau"
+            :type="passwordFieldType"
+            v-model="password"
+            required
+          />
+          <span class="toggle-password" @click="togglePasswordVisibility">
+            <span v-if="passwordFieldType === 'password'"
+              ><i class="fa-solid fa-eye"></i
+            ></span>
+            <span v-else><i class="fa-solid fa-eye-slash"></i></span
+          ></span>
+        </div>
+
         <!-- Error message -->
         <div v-if="errorMsg" class="errorMsg">{{ errorMsg }}</div>
         <!-- Quên mật khẩu & Đăng nhập button -->
         <div
           style="
-            margin-top: 8px;
+            margin-top: 24px;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -41,14 +48,9 @@
         >
       </form>
     </div>
-    <div
-      class="auth-page-right"
-      style="
-        background-image: url('/src/assets/imgs/login-background.jpg');
-        background-repeat: no-repeat;
-        background-size: 100% 100%;
-      "
-    ></div>
+    <div class="auth-page-right">
+      <img src="/images/login-background.jpg" alt="" />
+    </div>
   </div>
 </template>
 
@@ -100,11 +102,10 @@ export default {
           }
           router.push("/theo-doi-bao-cao");
         } else {
-          this.errorMsg = "Vui lòng kiểm tra lại email, mật khẩu 1.";
+          this.errorMsg = "Vui lòng kiểm tra lại email, mật khẩu.";
         }
       } catch (err) {
-        this.errorMsg = "Vui lòng kiểm tra lại email, mật khẩu 2.";
-        console.log(`error 2: ${err}`);
+        this.errorMsg = "Vui lòng kiểm tra lại email, mật khẩu.";
       }
     },
     openRegisterPage() {
@@ -119,9 +120,72 @@ export default {
 </script>
 
 <style scoped>
+.auth-page-container {
+  flex: 1;
+  display: flex;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.auth-page-left {
+  flex: 1;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #f7f7f7;
+}
+
+.auth-page-right {
+  flex: 1;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  background-color: #ffffff;
+}
+
+.auth-page-right img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
 .login-form {
   width: 300px;
   display: flex;
   flex-direction: column;
+}
+
+.errorMsg {
+  color: red;
+}
+
+.password-wrapper {
+  position: relative;
+}
+
+.password-wrapper input {
+  width: 100%;
+  padding-right: 2rem;
+}
+
+.password-wrapper .toggle-password {
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  cursor: pointer;
+}
+
+@media (max-width: 768px) {
+  .auth-page-left {
+    flex: 1 1 100%;
+  }
+
+  .auth-page-right {
+    display: none;
+  }
 }
 </style>

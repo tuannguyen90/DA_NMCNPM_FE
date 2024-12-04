@@ -20,11 +20,11 @@
 
       <!-- Ngày bắt đầu -->
       <label for="ngay-bat-dau">Ngày bắt đầu:</label>
-      <input type="text" v-model="chienDich.ngayBatDau" />
+      <input type="date" v-model="chienDich.ngayBatDau" />
 
       <!-- Ngày kết thúc -->
       <label for="ngay-ket-thuc">Ngày kết thúc:</label>
-      <input type="text" v-model="chienDich.ngayKetThuc" />
+      <input type="date" v-model="chienDich.ngayKetThuc" />
 
       <!-- Ngân sách dự kiến -->
       <label for="ngan-sach-du-kien">Ngân sách dự kiến (VND):</label>
@@ -72,6 +72,7 @@
 <script>
 import ChienDichService from "@/services/ChienDichService";
 import { formatDate } from "@/services/util_service";
+import Swal from "sweetalert2";
 export default {
   name: "ChinhSuaChienDich",
   props: ["chienDichProp", "titleProp"],
@@ -107,10 +108,23 @@ export default {
           this.chienDich
         );
         if (isSuccess) {
-          alert("Chỉnh sửa thành công!");
-          this.$emit("ChinhSuaChienDichThanhCong");
+          Swal.fire({
+            title: "Thông báo",
+            text: "Chỉnh sửa chiến dịch thành công!",
+            icon: "success",
+            confirmButtonText: "OK",
+          }).then((result) => {
+            if (result.isConfirmed) {
+              this.$emit("ChinhSuaChienDichThanhCong");
+            }
+          });
         } else {
-          alert("Chỉnh sửa thất bại!");
+          Swal.fire({
+            title: "Thông báo",
+            text: "Đã có lỗi xảy ra!",
+            icon: "error",
+            confirmButtonText: "OK",
+          });
         }
       } catch (error) {
         alert("Không thể chỉnh sửa khi chiến dịch đã hủy hoặc kết thúc.");

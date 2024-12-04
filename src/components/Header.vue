@@ -4,7 +4,7 @@
       <div>{{ title }}</div>
     </div>
     <div class="profile">
-      <span>{{ userEmail }}&nbsp&nbsp</span>
+      <span id="user-email">{{ userEmail }}&nbsp&nbsp</span>
       <i class="fa-solid fa-user"></i>
     </div>
   </div>
@@ -39,5 +39,15 @@ export default {
 .title {
   font-size: xx-large;
   font-weight: 700;
+}
+
+@media (max-width: 768px) {
+  .title {
+    font-size: x-large;
+    font-weight: 700;
+  }
+  #user-email {
+    display: none;
+  }
 }
 </style>

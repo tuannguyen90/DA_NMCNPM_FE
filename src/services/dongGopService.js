@@ -28,6 +28,20 @@ const getDanhSachDongGopByChienDich = async (idChienDich) => {
   }
 };
 
+const getTop10DongGop = async () => {
+  const url = `/DongGops/Top10DongGops`;
+  try {
+    const response = await apiClient.get(url);
+    if (response.status == 200) {
+      return response.data;
+    } else {
+      return [];
+    }
+  } catch (error) {
+    throw error;
+  }
+};
+
 const getDongGopById = async (idDongGop) => {
   const url = `/DongGops/${idDongGop}`;
   try {
@@ -63,4 +77,5 @@ export default {
   getDanhSachDongGopByChienDich,
   getDongGopById,
   verifyDongGop,
+  getTop10DongGop,
 };

@@ -125,7 +125,7 @@ export default {
       this.isThemChienDichModalOpen = false;
       this.getDanhSachChienDich();
       // Gửi notification
-      this.notification("Client", "Có 1 chiến dịch được tạo mới");
+      this.notification("Client", "ChienDich");
     },
     chienDichDuocChonDeSua(chienDich) {
       // console.log(chienDich);
@@ -135,7 +135,7 @@ export default {
     async onChinhSuaThanhCong() {
       this.getDanhSachChienDich();
       // Gửi notification
-      this.notification("Client", "CapNhatChienDich");
+      this.notification("Client", "ChienDich");
     },
     xemDanhSachDongGop(chienDich) {
       this.chienDich = chienDich;

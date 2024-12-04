@@ -10,7 +10,7 @@
       <!-- Danh sách chiến dịch -->
       <DanhSachChienDich
         :danhSachChienDich="danhSachChienDich"
-        :can-edit-props="false"
+        :canEditProp="false"
         @chonChienDich="chonChienDich"
       />
     </template>
@@ -79,6 +79,7 @@ export default {
     chonChienDich(chienDich) {
       console.log(chienDich);
       this.chienDich = chienDich;
+      this.isShowSecond = true;
     },
   },
 };

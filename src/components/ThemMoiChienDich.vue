@@ -16,11 +16,11 @@
 
       <!-- Ngày bắt đầu -->
       <label for="ngay-bat-dau">Ngày bắt đầu:</label>
-      <input type="text" v-model="chienDich.ngayBatDau" />
+      <input type="date" v-model="chienDich.ngayBatDau" />
 
       <!-- Ngày kết thúc -->
       <label for="ngay-ket-thuc">Ngày kết thúc:</label>
-      <input type="text" v-model="chienDich.ngayKetThuc" />
+      <input type="date" v-model="chienDich.ngayKetThuc" />
 
       <!-- Ngân sách dự kiến -->
       <label for="ngan-sach-du-kien">Ngân sách dự kiến (VND):</label>
@@ -56,6 +56,7 @@
 
 <script>
 import ChienDichService from "@/services/ChienDichService";
+import Swal from "sweetalert2";
 
 export default {
   name: "ThemMoiChienDich",
@@ -74,10 +75,23 @@ export default {
           this.chienDich
         );
         if (isSuccess) {
-          alert("Thêm mới thành công!");
-          this.$emit("ThemMoiThanhCong");
+          Swal.fire({
+            title: "Thông báo",
+            text: "Thêm mới chiến dịch thành công!",
+            icon: "success",
+            confirmButtonText: "OK",
+          }).then((result) => {
+            if (result.isConfirmed) {
+              this.$emit("ThemMoiThanhCong");
+            }
+          });
         } else {
-          alert("Thêm mới thất bại.");
+          Swal.fire({
+            title: "Thông báo",
+            text: "Đã xảy ra lỗi!",
+            icon: "error",
+            confirmButtonText: "OK",
+          });
         }
       } catch (error) {}
     },

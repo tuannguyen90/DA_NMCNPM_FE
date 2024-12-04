@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from "vue-router";
 
-import HomeLayout from "@/components/HomeLayout.vue";
+import HomePage from "@/pages/HomePage.vue";
 import LoginPage from "@/pages/LoginPage.vue";
 import RegisterPage from "@/pages/RegisterPage.vue";
 import TheoDoiBaoCaoPage from "@/pages/TheoDoiBaoCaoPage.vue";
@@ -28,8 +28,8 @@ const router = createRouter({
     },
     {
       path: "/trang-chu",
-      name: "HomeLayout",
-      component: HomeLayout,
+      name: "HomePage",
+      component: HomePage,
     },
     {
       path: "/theo-doi-bao-cao",

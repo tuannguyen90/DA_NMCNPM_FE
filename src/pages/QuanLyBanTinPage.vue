@@ -22,7 +22,7 @@
       <!-- Thêm mới bản tin Modal -->
       <div class="modal" v-if="isThemMoiBanTinModalOpen">
         <span class="close" @click="closeThemMoiBanTinModal">&times;</span>
-        <ThemMoiBanTin v-if="showChild" />
+        <ThemMoiBanTin v-if="showChild" @ThemMoiThanhCong="ThemMoiThanhCong" />
       </div>
     </template>
 
@@ -47,6 +47,8 @@ import ChinhSuaBanTin from "@/components/ChinhSuaBanTin.vue";
 
 import banTinService from "@/services/banTinService";
 
+import { useSignalR } from "@dreamonkey/vue-signalr";
+
 export default {
   name: "QuanLyBanTinPage",
   components: {
@@ -55,6 +57,15 @@ export default {
     ThemMoiBanTin,
     DanhSachBanTin,
     ChinhSuaBanTin,
+  },
+  setup() {
+    const signalR = useSignalR();
+
+    const notification = (user, message) => {
+      signalR.invoke("SendMessage", user, message);
+    };
+
+    return { notification };
   },
   data() {
     return {
@@ -80,6 +91,11 @@ export default {
     },
     onThemMoiBtnClicked() {
       this.isThemMoiBanTinModalOpen = true;
+    },
+    ThemMoiThanhCong() {
+      this.isThemMoiBanTinModalOpen = false;
+      this.getDanhSachBanTin();
+      this.notification("Client", "BanTin");
     },
     closeThemMoiBanTinModal() {
       this.showChild = false;

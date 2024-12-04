@@ -1,7 +1,15 @@
 <template>
   <div v-if="danhSachChienDich.length">
-    <ul class="container">
-      <li v-for="chienDich in danhSachChienDich" class="item">
+    <ul class="danh-sach-chien-dich-container">
+      <span style="font-size: x-large; font-weight: 700"
+        >Danh sách chiến dịch</span
+      >
+      <li
+        v-for="chienDich in danhSachChienDich"
+        class="item"
+        :class="canEditProp ? 'can-edit' : 'not-edit'"
+        @click.prevent="selectHandle(chienDich)"
+      >
         <!-- Leading -->
         <div class="item-leading">
           <i class="fa-solid fa-paper-plane fa-xl"></i>
@@ -11,16 +19,16 @@
           <div v-if="canEditProp == true" class="item-title">
             {{ chienDich.ten }}
           </div>
-          <div
-            v-else
-            class="item-title"
-            @click.prevent="chonChienDich(chienDich)"
-            style="cursor: pointer; color: blue"
-          >
+          <div v-else class="item-title">
             {{ chienDich.ten }}
           </div>
           <!-- Content -->
-          <div class="item-desc">{{ chienDich.noiDung }}</div>
+          <div class="item-desc">
+            <span style="font-weight: 700">Mục tiêu :</span>
+            {{ chienDich.nganSachDuKien }} -
+            <span style="font-weight: 700">Đạt được: </span
+            >{{ chienDich.thucThu }}
+          </div>
 
           <!-- Buttons -->
           <div v-if="canEditProp == true" class="buttons">
@@ -62,27 +70,31 @@ export default {
   components: { TrangThaiChienDich },
   props: ["danhSachChienDich", "canEditProp"],
   methods: {
-    chonChienDich(chienDich) {
-      this.$emit("chonChienDich", chienDich);
-    },
     chinhSua(chienDich) {
       this.$emit("chienDichDuocChonDeSua", chienDich);
     },
     xemDanhSachDongGop(chienDich) {
       this.$emit("xemDanhSachDongGop", chienDich);
     },
+    selectHandle(chienDich) {
+      if (!this.canEditProp) {
+        this.$emit("chonChienDich", chienDich);
+      }
+    },
   },
 };
 </script>
 
 <style scoped>
-.container {
+.danh-sach-chien-dich-container {
   width: 100%;
   height: 100%;
-  padding-left: 16px;
-  padding-right: 16px;
-  padding-bottom: 16px;
+  padding: 16px;
   overflow: auto;
+}
+
+.not-edit {
+  cursor: pointer;
 }
 
 .item {
@@ -111,12 +123,12 @@ export default {
 
 .item-title {
   font-weight: 700;
-  font-size: x-large;
+  font-size: medium;
 }
 
 .item-desc {
   margin-top: 8px;
-  font-size: large;
+  font-size: medium;
 }
 
 .item-trailing {

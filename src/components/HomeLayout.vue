@@ -26,6 +26,7 @@
 import Menu from "./Menu.vue";
 export default {
   name: "HomeLayout",
+  props: ["isShowMain", "isShowSecond"],
   components: {
     Menu,
   },

@@ -15,7 +15,7 @@ app.use(router);
 
 // SignalR
 const connection = new HubConnectionBuilder()
-  .withUrl(`${import.meta.env.VITE_SIGNALR_DOMAIN}/notificationService`, {
+  .withUrl(`http://159.223.62.214:5133/notificationService`, {
     withCredentials: false,
   })
   .withAutomaticReconnect()

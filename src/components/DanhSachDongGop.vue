@@ -100,7 +100,7 @@ export default {
               Swal.fire("Thành công!", "Đóng góp đã được duyệt", "success");
               // Reset danh sach
               this.getDanhSachDongGop();
-              this.notification("Client", "DuyetDongGop");
+              this.notification("Client", "DongGop");
             } else {
               Swal.fire("Thất bại!", "Đóng góp chưa được duyệt", "error");
             }

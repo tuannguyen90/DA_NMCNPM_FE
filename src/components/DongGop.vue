@@ -95,7 +95,7 @@ export default {
       const isSuccess = await dongGopService.taoDongGop(dongGop);
       if (isSuccess) {
         alert("Gửi đóng góp thành công");
-        this.notification("Client", "DongGopMoi");
+        this.notification("Client", "DongGop");
       } else {
         alert("Gửi đóng góp thất bại");
       }

@@ -64,11 +64,12 @@ export default {
   width: 100%;
   flex-grow: 1;
   list-style: none;
-  padding: 0;
+  padding: 16px;
   margin: 0;
 }
 .menu li {
   width: 100%;
+  border-radius: 16px;
   display: flex;
   align-items: center;
   padding: 15px;
@@ -87,5 +88,11 @@ export default {
   font-size: 16px;
   flex-grow: 1;
   display: inline-block;
+}
+
+@media (max-width: 768px) {
+  .menu-title {
+    display: none;
+  }
 }
 </style>

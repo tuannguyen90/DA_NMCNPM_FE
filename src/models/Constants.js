@@ -1,9 +1,10 @@
 export const NguoiDongGopMenu = [
   {
-    title: "Theo dõi báo cáo",
+    title: "Trang chủ",
     icon: "fa-solid fa-house",
-    path: "/theo-doi-bao-cao",
+    path: "/trang-chu",
   },
+
   {
     title: "Đóng góp",
     icon: "fa-solid fa-hand-holding-hand",
@@ -28,6 +29,11 @@ export const NguoiDongGopMenu = [
 
 export const NguoiNhanHoTroMenu = [
   {
+    title: "Trang chủ",
+    icon: "fa-solid fa-house",
+    path: "/trang-chu",
+  },
+  {
     title: "Đăng xuất",
     icon: "fa-solid fa-right-from-bracket",
     path: "/dang-nhap",
@@ -36,10 +42,11 @@ export const NguoiNhanHoTroMenu = [
 
 export const ToChucTuThienMenu = [
   {
-    title: "Theo dõi báo cáo",
+    title: "Trang chủ",
     icon: "fa-solid fa-house",
-    path: "/theo-doi-bao-cao",
+    path: "/trang-chu",
   },
+
   {
     title: "Quản lý chiến dịch",
     icon: "fa-solid fa-paper-plane",
@@ -69,9 +76,9 @@ export const ToChucTuThienMenu = [
 
 export const QuanTriHeThongMenu = [
   {
-    title: "Theo dõi báo cáo",
+    title: "Trang chủ",
     icon: "fa-solid fa-house",
-    path: "/theo-doi-bao-cao",
+    path: "/trang-chu",
   },
   {
     title: "Bản đồ",

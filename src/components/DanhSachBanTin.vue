@@ -1,5 +1,6 @@
 <template>
   <div v-if="isViewModeProp" class="danh-sach-ban-tin">
+    <span style="font-size: x-large; font-weight: 700">Bản tin</span>
     <div
       v-for="banTin in danhSachBanTin"
       class="item"
@@ -22,6 +23,18 @@
 
       <!-- Trailing -->
       <div class="item-trailing"></div>
+    </div>
+    <!-- Chi tiết bản tin -->
+    <div class="modal" v-if="banTin">
+      <span class="close" @click="dongBanTin">&times;</span>
+      <div class="chi-tiet-ban-tin">
+        <p style="font-size: larger; font-weight: 700">{{ banTin.tieuDe }}</p>
+        <p style="font-size: medium">
+          <span>Nguồn: </span
+          ><a :href="`${banTin.nguon}`" target="_blank">{{ banTin.nguon }}</a>
+        </p>
+        <p style="font-size: medium">{{ banTin.noiDung }}</p>
+      </div>
     </div>
   </div>
   <!-- Edit Mode -->
@@ -59,21 +72,23 @@
 </template>
 
 <script>
-import banTinService from "@/services/banTinService";
-
 export default {
   name: "DanhSachBanTin",
   props: ["danhSachBanTin", "isViewModeProp"],
+  data() {
+    return {
+      banTin: null,
+    };
+  },
   methods: {
-    async getDanhSachBanTin() {
-      this.danhSachBanTin = await banTinService.getDanhSachBanTin();
-      console.log(JSON.stringify(this.danhSachBanTin));
-    },
     chonBanTinDeChinhSua(banTin) {
       this.$emit("chon-ban-tin-de-chinh-sua", banTin);
     },
     chonBanTinDeXem(banTin) {
-      this.$emit("chonBanTinDeXem", banTin);
+      this.banTin = banTin;
+    },
+    dongBanTin() {
+      this.banTin = null;
     },
   },
 };
@@ -112,12 +127,12 @@ export default {
 
 .item-title {
   font-weight: 700;
-  font-size: x-large;
+  font-size: medium;
 }
 
 .item-desc {
   margin-top: 8px;
-  font-size: large;
+  font-size: medium;
 }
 
 .item-trailing {
@@ -134,5 +149,40 @@ export default {
   flex-direction: row;
   justify-content: start;
   align-items: center;
+}
+.modal {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+  z-index: 1000;
+}
+.modal-content {
+  max-width: 80%;
+  max-height: 80%;
+}
+
+.close {
+  position: absolute;
+  top: 10px;
+  right: 20px;
+  padding: 4px;
+  font-size: 50px;
+  color: white;
+  cursor: pointer;
+}
+
+.chi-tiet-ban-tin {
+  max-width: 1200px;
+  min-width: 800px;
+  height: 80%;
+  background-color: white;
+  padding: 20px;
+  overflow-y: auto;
 }
 </style>
