@@ -25,9 +25,9 @@
           <!-- Content -->
           <div class="item-desc">
             <span style="font-weight: 700">Mục tiêu :</span>
-            {{ chienDich.nganSachDuKien }} -
+            {{ $formatCurrency(chienDich.nganSachDuKien) }} đ -
             <span style="font-weight: 700">Đạt được: </span
-            >{{ chienDich.thucThu }}
+            >{{ $formatCurrency(chienDich.thucThu) }}đ
           </div>
 
           <!-- Buttons -->
@@ -60,15 +60,29 @@
         </div>
       </li>
     </ul>
+
+    <!-- Chi tiết chiến dịch -->
+    <transition name="fade">
+      <div class="modal" v-if="chienDich">
+        <span class="close" @click="dongChiTietChienDich">&times;</span>
+        <ChiTietChienDich :chienDich="chienDich" class="modal-content" /></div
+    ></transition>
   </div>
 </template>
 
 <script>
 import TrangThaiChienDich from "./TrangThaiChienDich.vue";
+import ChiTietChienDich from "./ChiTietChienDich.vue";
+
 export default {
   name: "DanhSachChienDich",
-  components: { TrangThaiChienDich },
-  props: ["danhSachChienDich", "canEditProp"],
+  components: { TrangThaiChienDich, ChiTietChienDich },
+  props: ["danhSachChienDich", "canEditProp", "selectToDongGop"],
+  data() {
+    return {
+      chienDich: null,
+    };
+  },
   methods: {
     chinhSua(chienDich) {
       this.$emit("chienDichDuocChonDeSua", chienDich);
@@ -78,8 +92,17 @@ export default {
     },
     selectHandle(chienDich) {
       if (!this.canEditProp) {
-        this.$emit("chonChienDich", chienDich);
+        if (this.selectToDongGop) {
+          // Chọn để dóng góp
+          this.$emit("chonChienDich", chienDich);
+        } else {
+          // Xem
+          this.chienDich = chienDich;
+        }
       }
+    },
+    dongChiTietChienDich() {
+      this.chienDich = null;
     },
   },
 };
@@ -145,5 +168,33 @@ export default {
   flex-direction: row;
   justify-content: start;
   align-items: center;
+}
+
+.modal {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+  z-index: 9999;
+}
+.modal-content {
+  max-width: 1200px;
+  max-height: 80%;
+  background-color: white;
+}
+
+.close {
+  position: absolute;
+  top: 10px;
+  right: 20px;
+  padding: 4px;
+  font-size: 50px;
+  color: white;
+  cursor: pointer;
 }
 </style>

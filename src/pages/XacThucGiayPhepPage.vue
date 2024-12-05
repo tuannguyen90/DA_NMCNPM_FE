@@ -26,10 +26,11 @@
         </div>
 
         <!-- Modal hiển thị hình ảnh -->
-        <div v-if="isModalOpen" class="modal" @click.self="closeModal">
-          <span class="close" @click="closeModal">&times;</span>
-          <img :src="imageData" alt="Full Image" />
-        </div>
+        <transition name="fade">
+          <div v-if="isModalOpen" class="modal" @click.self="closeModal">
+            <span class="close" @click="closeModal">&times;</span>
+            <img :src="imageData" alt="Full Image" class="modal-content" /></div
+        ></transition>
 
         <!-- Cập nhật hình ảnh -->
         <div style="margin-top: 16px">

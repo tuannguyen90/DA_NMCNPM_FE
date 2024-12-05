@@ -35,7 +35,7 @@
 
       <!-- Ngày cập nhật -->
       <label for="ngay-cap-nhat">Ngày cập nhật:</label>
-      <input type="date" v-model="banTin.ngayCapNhat" />
+      <input id="ngay-cap-nhat" type="date" v-model="banTin.ngayCapNhat" />
     </form>
   </div>
 </template>

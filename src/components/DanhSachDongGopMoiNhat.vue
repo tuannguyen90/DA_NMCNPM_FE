@@ -4,20 +4,24 @@
       >Top 10 đóng góp mới nhất</span
     >
     <table>
-      <tr>
-        <th>STT</th>
-        <th>Họ tên</th>
-        <th>Chiến dịch</th>
-        <th>Số tiền</th>
-        <th>Thời gian</th>
-      </tr>
-      <tr v-for="(dongGop, index) in danhSachDongGopMoiNhat" :key="index">
-        <td>{{ index + 1 }}</td>
-        <td>{{ dongGop.tenNguoiChuyen }}</td>
-        <td>{{ dongGop.tenChienDich }}</td>
-        <td>{{ dongGop.soTien }}</td>
-        <td>{{ dongGop.ngayDongGop }}</td>
-      </tr>
+      <thead>
+        <tr>
+          <th>STT</th>
+          <th>Họ tên</th>
+          <th>Chiến dịch</th>
+          <th>Số tiền</th>
+          <th>Thời gian</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-for="(dongGop, index) in danhSachDongGopMoiNhat" :key="index">
+          <td>{{ index + 1 }}</td>
+          <td>{{ dongGop.tenNguoiChuyen }}</td>
+          <td>{{ dongGop.tenChienDich }}</td>
+          <td>{{ $formatCurrency(dongGop.soTien) }}đ</td>
+          <td>{{ dongGop.ngayDongGop }}</td>
+        </tr>
+      </tbody>
     </table>
   </div>
 </template>
@@ -54,7 +58,6 @@ export default {
     async getDanhSachDongGopMoiNhat() {
       try {
         this.danhSachDongGopMoiNhat = await dongGopService.getTop10DongGop();
-        console.log(JSON.stringify(this.danhSachDongGopMoiNhat));
       } catch (error) {}
     },
   },

@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="chi-tiet-chien-dich-container">
     <!-- Tiêu đề -->
     <div class="tieu-de">Chi tiết chiến dịch</div>
 
@@ -36,13 +36,15 @@
     <!-- Ngân sách dự kiến -->
     <div class="item">
       <div class="title">Ngân sách dự kiến:</div>
-      <div class="content">{{ chienDich.nganSachDuKien }}</div>
+      <div class="content">
+        {{ $formatCurrency(chienDich.nganSachDuKien) }} VND
+      </div>
     </div>
 
     <!-- Thực thu -->
     <div class="item">
       <div class="title">Thực thu:</div>
-      <div class="content">{{ chienDich.thucThu }}</div>
+      <div class="content">{{ $formatCurrency(chienDich.thucThu) }} VND</div>
     </div>
 
     <!-- Trạng thái -->
@@ -68,10 +70,11 @@ export default {
 </script>
 
 <style scoped>
-.container {
+.chi-tiet-chien-dich-container {
   height: 100%;
   width: 100%;
   margin: 16px;
+  padding: 16px;
 }
 .tieu-de {
   font-size: xx-large;

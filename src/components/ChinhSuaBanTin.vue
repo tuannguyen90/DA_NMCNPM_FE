@@ -41,14 +41,8 @@
       ></textarea>
 
       <!-- Ngày cập nhật -->
-      <label for="ngay-cap-nhat">Ngày cập nhật (yyyy-mm-dd):</label>
-      <input
-        required
-        type="text"
-        v-model="banTin.ngayCapNhat"
-        placeholder="yyyy-mm-dd"
-        pattern="\d{4}-\d{2}-\d{2}"
-      />
+      <label for="ngay-cap-nhat">Ngày cập nhật:</label>
+      <input required type="date" v-model="banTin.ngayCapNhat" />
     </form>
   </div>
 </template>
@@ -56,6 +50,8 @@
 <script>
 import banTinService from "@/services/banTinService";
 import { formatDate } from "@/services/util_service";
+import Swal from "sweetalert2";
+
 export default {
   name: "ChinhSuaBanTin",
   props: ["banTinProp"],
@@ -79,10 +75,14 @@ export default {
       try {
         const isSuccess = await banTinService.capNhatBanTin(this.banTin);
         if (isSuccess) {
-          alert("Cập nhật thành công!");
+          await Swal.fire(
+            "Thông báo",
+            "Cập nhật bản tin thành công.",
+            "success"
+          );
           this.$emit("capNhatThanhCong");
         } else {
-          alert("Cập nhật thất bại.");
+          await Swal.fire("Thông báo", "Đã có lỗi xảy ra.", "error");
         }
       } catch (error) {
         alert("Cập nhật thất bại. Vui lòng xem lại các thông tin.");
@@ -99,5 +99,8 @@ export default {
   min-width: 800px;
   background-color: white;
   padding: 20px;
+}
+input {
+  width: 100%;
 }
 </style>

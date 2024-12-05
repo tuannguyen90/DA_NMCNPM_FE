@@ -46,10 +46,15 @@
       />
 
       <!-- Hình ảnh đóng góp -->
-      <div class="modal" v-if="hinhAnhDongGop">
-        <span class="close" @click="closeHinhAnhDongGopModal">&times;</span>
-        <img :src="hinhAnhDongGop" alt="hinh-anh-dong-gop" />
-      </div>
+      <transition name="fade">
+        <div class="modal" v-if="hinhAnhDongGop">
+          <span class="close" @click="closeHinhAnhDongGopModal">&times;</span>
+          <img
+            :src="hinhAnhDongGop"
+            alt="hinh-anh-dong-gop"
+            class="modal-content"
+          /></div
+      ></transition>
     </template>
   </HomeLayout>
 </template>

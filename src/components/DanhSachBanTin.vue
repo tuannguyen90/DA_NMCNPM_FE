@@ -25,17 +25,19 @@
       <div class="item-trailing"></div>
     </div>
     <!-- Chi tiết bản tin -->
-    <div class="modal" v-if="banTin">
-      <span class="close" @click="dongBanTin">&times;</span>
-      <div class="chi-tiet-ban-tin">
-        <p style="font-size: larger; font-weight: 700">{{ banTin.tieuDe }}</p>
-        <p style="font-size: medium">
-          <span>Nguồn: </span
-          ><a :href="`${banTin.nguon}`" target="_blank">{{ banTin.nguon }}</a>
-        </p>
-        <p style="font-size: medium">{{ banTin.noiDung }}</p>
+    <transition name="fade">
+      <div class="modal" v-if="banTin">
+        <span class="close" @click="dongBanTin">&times;</span>
+        <div class="chi-tiet-ban-tin">
+          <p style="font-size: larger; font-weight: 700">{{ banTin.tieuDe }}</p>
+          <p style="font-size: medium">
+            <span>Nguồn: </span
+            ><a :href="`${banTin.nguon}`" target="_blank">{{ banTin.nguon }}</a>
+          </p>
+          <p style="font-size: medium">{{ banTin.noiDung }}</p>
+        </div>
       </div>
-    </div>
+    </transition>
   </div>
   <!-- Edit Mode -->
   <div v-else class="danh-sach-ban-tin">
@@ -160,7 +162,7 @@ export default {
   width: 100%;
   height: 100%;
   background-color: rgba(0, 0, 0, 0.8);
-  z-index: 1000;
+  z-index: 9999;
 }
 .modal-content {
   max-width: 80%;

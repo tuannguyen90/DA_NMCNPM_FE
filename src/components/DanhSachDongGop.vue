@@ -4,33 +4,42 @@
     <span style="font-size: larger; font-weight: 700"
       >Chiến dịch {{ chienDichProp.ten }}</span
     ><br />
-    <span>Số tiền mục tiêu: {{ chienDichProp.nganSachDuKien }} VND</span><br />
-    <span>Số tiền đạt được: {{ chienDichProp.thucThu }} VND</span>
+    <span
+      >Số tiền mục tiêu:
+      {{ $formatCurrency(chienDichProp.nganSachDuKien) }} VND</span
+    ><br />
+    <span
+      >Số tiền đạt được: {{ $formatCurrency(chienDichProp.thucThu) }} VND</span
+    >
     <!-- Danh sách đóng góp -->
     <table>
-      <tr>
-        <th>Tên người đóng góp</th>
-        <th>Số tiền (VND)</th>
-        <th>Ngày đóng góp</th>
-        <th>Trạng thái</th>
-        <th>Bằng chứng</th>
-      </tr>
-      <tr v-for="dongGop in danhSachDongGop">
-        <td>{{ dongGop.tenDayDu }}</td>
-        <td>{{ dongGop.soTien }}</td>
-        <td>{{ dongGop.ngayDongGop }}</td>
-        <td>
-          <TrangThaiDongGop
-            :TrangThaiProp="dongGop.trangThai"
-            @duyetDongGop="duyetDongGop(dongGop.iddongGop)"
-          />
-        </td>
-        <td>
-          <a href="#" @click.prevent="moHinhAnh(dongGop.iddongGop)"
-            >Hình ảnh chuyển khoản</a
-          >
-        </td>
-      </tr>
+      <thead>
+        <tr>
+          <th>Tên người đóng góp</th>
+          <th>Số tiền (VND)</th>
+          <th>Ngày đóng góp</th>
+          <th>Trạng thái</th>
+          <th>Bằng chứng</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-for="dongGop in danhSachDongGop">
+          <td>{{ dongGop.tenNguoiChuyen }}</td>
+          <td>{{ $formatCurrency(dongGop.soTien) }} đ</td>
+          <td>{{ dongGop.ngayDongGop }}</td>
+          <td>
+            <TrangThaiDongGop
+              :TrangThaiProp="dongGop.trangThai"
+              @duyetDongGop="duyetDongGop(dongGop.iddongGop)"
+            />
+          </td>
+          <td>
+            <a href="#" @click.prevent="moHinhAnh(dongGop.iddongGop)"
+              >Hình ảnh chuyển khoản</a
+            >
+          </td>
+        </tr>
+      </tbody>
     </table>
   </div>
 </template>

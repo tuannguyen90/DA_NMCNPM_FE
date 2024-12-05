@@ -16,6 +16,7 @@
       <!-- Danh sách chiến dịch -->
       <DanhSachChienDich
         :danhSachChienDich="danhSachChienDich"
+        :selectToDongGop="true"
         @chonChienDich="chonChienDich"
       />
     </template>
@@ -65,7 +66,6 @@ export default {
     },
     chonChienDich(chienDich) {
       this.chienDichDuocChon = chienDich;
-      console.log(`chon   ddd ${chienDich.ten}`);
       this.showSecondary = true;
     },
   },

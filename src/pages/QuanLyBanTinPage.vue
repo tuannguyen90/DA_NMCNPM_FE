@@ -104,7 +104,6 @@ export default {
       }, 300);
     },
     chonBanTinDeChinhSua(banTin) {
-      console.log(`chon: ${JSON.stringify(banTin)}`);
       this.banTinSelected = banTin;
     },
     capNhatThanhCong() {
