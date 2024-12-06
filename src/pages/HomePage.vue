@@ -121,12 +121,14 @@ export default {
 }
 .top-left {
   flex: 1;
-  border-bottom: 1px solid gray;
+  border-bottom: 1px solid #eee;
+  border-right: 1px solid #eee;
   overflow-y: scroll;
 }
 
 .bottom-left {
   flex: 1;
+  border-right: 1px solid #eee;
   overflow-y: scroll;
 }
 .right {
@@ -137,7 +139,7 @@ export default {
 }
 .top-right {
   flex: 1;
-  border-bottom: 1px solid gray;
+  border-bottom: 1px solid #eee;
   overflow-y: scroll;
 }
 

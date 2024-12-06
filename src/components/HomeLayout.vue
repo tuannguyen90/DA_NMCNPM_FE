@@ -61,7 +61,8 @@ export default {
 }
 .item-4 {
   grid-area: secondary;
-  overflow: auto;
+  overflow-x: hidden;
+  overflow-y: auto;
 }
 .item-5 {
   grid-area: footer;

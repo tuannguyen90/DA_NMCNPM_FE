@@ -10,10 +10,12 @@
       <div class="quan-ly-giay-phep-container">
         <table>
         <thead>
-            <th>STT</th>
-            <th>Tên Tổ Chức</th>
-            <th>Trạng thái giấy phép</th>
-            <th>Hình ảnh</th>
+            <tr>
+                <th>STT</th>
+                <th>Tên Tổ Chức</th>
+                <th>Trạng thái giấy phép</th>
+                <th>Hình ảnh</th>
+            </tr>
         </thead>
         <tbody>
             <tr v-for="(nguoiDung, index) in danhSachNguoiDung" key="index">

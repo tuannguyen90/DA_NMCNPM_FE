@@ -2,7 +2,7 @@
   <div class="chinh-sua-ban-tin-container">
     <form @submit.prevent="onSubmit">
       <!-- Title -->
-      <h1>Chỉnh sửa bản tin</h1>
+      <div><span style="font-size: larger; font-weight: 700;">Chỉnh sửa bản tin</span></div>
 
       <!-- Submit -->
       <button type="submit">Cập nhật</button>
@@ -94,10 +94,8 @@ export default {
 
 <style scoped>
 .chinh-sua-ban-tin-container {
-  height: 80%;
-  max-width: 1200px;
-  min-width: 800px;
-  background-color: white;
+  height: 100%;
+  width: 100%;
   padding: 20px;
 }
 input {

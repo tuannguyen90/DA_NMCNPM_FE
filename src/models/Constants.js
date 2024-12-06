@@ -1,3 +1,17 @@
+
+export const AnomynouseMenu = [
+  {
+    title: "Trang chủ",
+    icon: "fa-solid fa-house",
+    path: "/trang-chu",
+  },
+  {
+    title: "Đăng nhập",
+    icon: "fa-solid fa-right-to-bracket",
+    path: "/dang-nhap",
+  }
+];
+
 export const NguoiDongGopMenu = [
   {
     title: "Trang chủ",

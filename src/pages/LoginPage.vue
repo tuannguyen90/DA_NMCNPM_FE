@@ -10,7 +10,7 @@
         >
         <input id="email" type="email" v-model="email" required />
         <!-- Password -->
-        <label style="margin-top: 8px; margin-bottom: 4px">Mật khẩu </label>
+        <label for="mat-khau" style="margin-top: 8px; margin-bottom: 4px">Mật khẩu </label>
         <div class="password-wrapper">
           <input
             id="mat-khau"
@@ -46,6 +46,10 @@
           >Chưa có tài khoản?
           <a href="#" @click.prevent="openRegisterPage">Đăng ký</a></span
         >
+        <!-- Truy cập không cần đăng nhập -->
+         <span style="margin-top: 16px;">
+          <a href="#" @click.prevent="truyCapTrangChu">Truy cập không cần đăng nhập</a>
+         </span>
       </form>
     </div>
     <div class="auth-page-right">
@@ -58,6 +62,7 @@
 import router from "@/router";
 import authService from "@/services/authService";
 import { useUserStore } from "@/stores/user";
+import { AnomynouseMenu } from "@/models/Constants";
 
 import {
   NguoiDongGopMenu,
@@ -75,6 +80,15 @@ export default {
       errorMsg: "",
       passwordFieldType: "password",
     };
+  },
+  mounted() {
+    const userStore = useUserStore();
+      userStore.setEmail('');
+      userStore.setTen('');
+      userStore.setToken('');
+      userStore.setUserId('');
+      userStore.setUserType('');
+      userStore.setMenu(AnomynouseMenu);      
   },
   methods: {
     async login() {
@@ -115,6 +129,9 @@ export default {
       this.passwordFieldType =
         this.passwordFieldType === "password" ? "text" : "password";
     },
+    truyCapTrangChu() {
+      router.push("/trang-chu");
+    }
   },
 };
 </script>
