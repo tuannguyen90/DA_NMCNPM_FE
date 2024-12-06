@@ -91,6 +91,11 @@ export const QuanTriHeThongMenu = [
     path: "/quan-ly-ban-tin",
   },
   {
+    title: "Quản lý giấy phép",
+    icon: "fa-solid fa-certificate",
+    path: "/quan-ly-giay-phep",
+  },
+  {
     title: "Đăng xuất",
     icon: "fa-solid fa-right-from-bracket",
     path: "/dang-nhap",

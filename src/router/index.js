@@ -10,6 +10,7 @@ import DongGopPage from "@/pages/DongGopPage.vue";
 import MapsPage from "@/pages/MapsPage.vue";
 import QuanLyBanTinPage from "@/pages/QuanLyBanTinPage.vue";
 import BanTinPage from "@/pages/BanTinPage.vue";
+import QuanLyGiayPhepPage from "@/pages/QuanLyGiayPhepPage.vue";
 
 const routerHistory = createWebHistory();
 
@@ -66,6 +67,11 @@ const router = createRouter({
       name: "BanTinPage",
       component: BanTinPage,
     },
+    {
+      path: "/quan-ly-giay-phep",
+      name: "QuanLyGiayPhepPage",
+      component: QuanLyGiayPhepPage,
+    }
   ],
 });
 

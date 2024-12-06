@@ -125,10 +125,44 @@ const submitPaperAPI = async (file) => {
   }
 };
 
+const getAllNguoiDung = async () => {
+  const url = "/NguoiDung/";
+
+  try {
+    const response = await apiClient.get(url);
+    if (response.status == 200) {
+      return response.data;
+    }
+    else {
+      return [];
+    }
+  } catch (error) {
+    throw error;
+  }
+}
+
+const verifyGiayPhep = async (idToChuc) => {
+  const url = `/NguoiDung/${idToChuc}/VerifyPaper`;
+  try {
+    const response = await apiClient.put(url, {
+      id: idToChuc
+    })
+    if (response.status == 200 || response.status == 201) {
+      return true;
+    } else {
+      return false;
+    }
+  } catch (error) {
+    throw error;
+  }
+}
+
 export default {
   registerAPI,
   verifyOTP,
   loginAPI,
   getPaperAPI,
   submitPaperAPI,
+  getAllNguoiDung,
+  verifyGiayPhep,
 };
