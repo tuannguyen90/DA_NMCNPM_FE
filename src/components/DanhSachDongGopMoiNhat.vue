@@ -19,7 +19,7 @@
           <td>{{ dongGop.tenNguoiChuyen }}</td>
           <td>{{ dongGop.tenChienDich }}</td>
           <td>{{ $formatCurrency(dongGop.soTien) }}đ</td>
-          <td>{{ dongGop.ngayDongGop }}</td>
+          <td>{{ $formatDateTime(dongGop.ngayDongGop) }}</td>
         </tr>
       </tbody>
     </table>

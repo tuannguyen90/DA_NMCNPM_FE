@@ -26,7 +26,7 @@
         <tr v-for="dongGop in danhSachDongGop">
           <td>{{ dongGop.tenNguoiChuyen }}</td>
           <td>{{ $formatCurrency(dongGop.soTien) }} đ</td>
-          <td>{{ dongGop.ngayDongGop }}</td>
+          <td>{{ $formatDateTime(dongGop.ngayDongGop) }}</td>
           <td>
             <TrangThaiDongGop
               :TrangThaiProp="dongGop.trangThai"

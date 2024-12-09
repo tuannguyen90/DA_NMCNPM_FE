@@ -56,6 +56,8 @@ import Header from "@/components/Header.vue";
 
 import authService from "@/services/authService";
 
+import Swal from "sweetalert2";
+
 export default {
   name: "XacThucGiayPhepPage",
   components: {
@@ -100,12 +102,13 @@ export default {
       try {
         const isSuccess = await authService.submitPaperAPI(this.selectedFile);
         if (isSuccess) {
-          alert("Upload thành công!");
+          Swal.fire("Thông báo", "Gửi hình ảnh thành công", "success");
+          this.getImage();
         } else {
-          alert("Upload thất bại");
+          Swal.fire("Thông báo", "Đã có lỗi xảy ra", "error");
         }
       } catch (error) {
-        console.log(`upload lỗi: ${error}`);
+        Swal.fire("Thông báo", "Đã có lỗi xảy ra", "error");
       }
     },
     byteArrayToBase64(byteArray) {

@@ -28,13 +28,53 @@
     <transition name="fade">
       <div class="modal" v-if="banTin">
         <span class="close" @click="dongBanTin">&times;</span>
+        <!-- Nội dung -->
         <div class="chi-tiet-ban-tin">
-          <p style="font-size: larger; font-weight: 700">{{ banTin.tieuDe }}</p>
+          <p style="font-size: larger; font-weight: 700">
+            {{ banTin.tieuDe }} 2
+          </p>
           <p style="font-size: medium">
             <span>Nguồn: </span
             ><a :href="`${banTin.nguon}`" target="_blank">{{ banTin.nguon }}</a>
           </p>
           <p style="font-size: medium">{{ banTin.noiDung }}</p>
+
+          <!-- Nhập bình luận -->
+          <div v-if="choPhepBinhLuan">
+            <label for="binh-luan">Bình luận</label>
+            <textarea
+              name="binh-luan"
+              id="binh-luan"
+              v-model="noiDungBinhLuan"
+            ></textarea>
+            <button @click.prevent="guiBinhLuan">Gửi</button>
+          </div>
+
+          <!-- Danh sách bình luận -->
+          <ul>
+            <li v-for="binhLuan in danhSachBinhLuan">
+              <table>
+                <tbody>
+                  <tr>
+                    <th>{{ binhLuan.tenNguoiDung }}:</th>
+                    <td>
+                      <div class="noi-dung-binh-luan-viewer">
+                        {{ binhLuan.noiDung }}
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <th></th>
+                    <td>
+                      <span style="font-size: x-small; margin-left: 16px">
+                        {{ $formatDateTime(binhLuan.ngayBinhLuan) }}
+                      </span>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </li>
+          </ul>
         </div>
       </div>
     </transition>
@@ -74,13 +114,28 @@
 </template>
 
 <script>
+import binhLuanService from "@/services/binhLuanService";
+import { useUserStore } from "@/stores/user";
+import Swal from "sweetalert2";
+
 export default {
   name: "DanhSachBanTin",
   props: ["danhSachBanTin", "isViewModeProp"],
   data() {
     return {
       banTin: null,
+      choPhepBinhLuan: false,
+      noiDungBinhLuan: "",
+      userId: "",
+      danhSachBinhLuan: [],
     };
+  },
+  mounted() {
+    const userStore = useUserStore();
+    if (userStore.userId != "") {
+      this.choPhepBinhLuan = true;
+      this.userId = userStore.userId;
+    }
   },
   methods: {
     chonBanTinDeChinhSua(banTin) {
@@ -88,9 +143,48 @@ export default {
     },
     chonBanTinDeXem(banTin) {
       this.banTin = banTin;
+      this.getDanhSachBinhLuan();
     },
     dongBanTin() {
       this.banTin = null;
+      this.danhSachBinhLuan = [];
+      this.noiDungBinhLuan = "";
+    },
+    async getDanhSachBinhLuan() {
+      try {
+        const ds = await binhLuanService.getDanhSachBinhLuan(
+          this.banTin.idbanTin
+        );
+        this.danhSachBinhLuan = ds.reverse();
+        console.log(JSON.stringify(this.danhSachBinhLuan));
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    async guiBinhLuan() {
+      if (this.noiDungBinhLuan == "") {
+        await Swal.fire(
+          "Thông báo",
+          "Vui lòng nhập nội dung bình luận!",
+          "warning"
+        );
+      } else {
+        const now = new Date();
+        const binhLuan = {
+          idBanTin: this.banTin.idbanTin,
+          idNguoiBinhLuan: this.userId,
+          noiDung: this.noiDungBinhLuan,
+          ngayBinhLuan: now,
+        };
+        const isSuccess = await binhLuanService.postBinhLuan(binhLuan);
+        if (isSuccess) {
+          await Swal.fire("Thông báo", "Gửi bình luận thành công", "success");
+          this.noiDungBinhLuan = "";
+          this.getDanhSachBinhLuan();
+        } else {
+          await Swal.fire("Thông báo", "Đã có lỗi xảy ra.", "error");
+        }
+      }
     },
   },
 };
@@ -162,7 +256,7 @@ export default {
   width: 100%;
   height: 100%;
   background-color: rgba(0, 0, 0, 0.8);
-  z-index: 9999;
+  z-index: 1050;
 }
 .modal-content {
   max-width: 80%;
@@ -186,5 +280,42 @@ export default {
   background-color: white;
   padding: 20px;
   overflow-y: auto;
+}
+
+th {
+  padding: 0px;
+  white-space: nowrap;
+  text-align: left;
+  width: 1%;
+  background-color: transparent;
+  border: none;
+}
+
+td {
+  padding: 0px;
+  padding-left: 16px;
+  width: 100%;
+  word-wrap: break-word;
+  border: none;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  border: none;
+}
+
+tr:nth-child(odd) {
+  background-color: transparent; /* Màu nền hàng lẻ */
+}
+
+tr:nth-child(even) {
+  background-color: transparent; /* Màu nền hàng chẵn */
+}
+
+.noi-dung-binh-luan-viewer {
+  padding: 8px 16px;
+  border-radius: 16px;
+  background-color: #f3f3f3;
 }
 </style>
