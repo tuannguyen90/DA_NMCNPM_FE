@@ -1,3 +1,4 @@
+import { icon } from "leaflet";
 
 export const AnomynouseMenu = [
   {
@@ -9,7 +10,7 @@ export const AnomynouseMenu = [
     title: "Đăng nhập",
     icon: "fa-solid fa-right-to-bracket",
     path: "/dang-nhap",
-  }
+  },
 ];
 
 export const NguoiDongGopMenu = [
@@ -47,6 +48,11 @@ export const NguoiNhanHoTroMenu = [
     icon: "fa-solid fa-house",
     path: "/trang-chu",
   },
+  // {
+  //   title: "Xin tài trợ",
+  //   icon: "fa-solid fa-hand-holding-hand",
+  //   path: "/xin-tai-tro",
+  // },
   {
     title: "Đăng xuất",
     icon: "fa-solid fa-right-from-bracket",

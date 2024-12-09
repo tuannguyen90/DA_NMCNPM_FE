@@ -11,6 +11,7 @@ import MapsPage from "@/pages/MapsPage.vue";
 import QuanLyBanTinPage from "@/pages/QuanLyBanTinPage.vue";
 import BanTinPage from "@/pages/BanTinPage.vue";
 import QuanLyGiayPhepPage from "@/pages/QuanLyGiayPhepPage.vue";
+import XinTaiTroPage from "@/pages/XinTaiTroPage.vue";
 
 const routerHistory = createWebHistory();
 
@@ -71,7 +72,12 @@ const router = createRouter({
       path: "/quan-ly-giay-phep",
       name: "QuanLyGiayPhepPage",
       component: QuanLyGiayPhepPage,
-    }
+    },
+    {
+      path: "/xin-tai-tro",
+      name: "XinTaiTroPage",
+      component: XinTaiTroPage,
+    },
   ],
 });
 

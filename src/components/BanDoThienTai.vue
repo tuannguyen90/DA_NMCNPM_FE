@@ -1,6 +1,6 @@
 <template>
   <div class="ban-do-container">
-    <span style="font-size: x-large; font-weight: 700;"
+    <span style="font-size: x-large; font-weight: 700"
       >Bản đồ thiệt hãi bão Yagi</span
     >
     <div id="map"></div>
@@ -166,5 +166,7 @@ export default {
 #map {
   width: 90%;
   height: 90%;
+  min-width: 200px;
+  min-height: 200px;
 }
 </style>

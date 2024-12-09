@@ -77,7 +77,12 @@ import ChiTietChienDich from "./ChiTietChienDich.vue";
 export default {
   name: "DanhSachChienDich",
   components: { TrangThaiChienDich, ChiTietChienDich },
-  props: ["danhSachChienDich", "canEditProp", "selectToDongGop"],
+  props: [
+    "danhSachChienDich",
+    "canEditProp",
+    "selectToDongGop",
+    "selectToXinTaiTro",
+  ],
   data() {
     return {
       chienDich: null,
@@ -95,6 +100,9 @@ export default {
         if (this.selectToDongGop) {
           // Chọn để dóng góp
           this.$emit("chonChienDich", chienDich);
+        } else if (this.selectToXinTaiTro) {
+          // Chọn để xin tài trợ
+          this.$emit("xinTaiTro", chienDich);
         } else {
           // Xem
           this.chienDich = chienDich;
