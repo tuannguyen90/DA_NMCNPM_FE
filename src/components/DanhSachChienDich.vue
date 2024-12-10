@@ -188,7 +188,7 @@ export default {
   width: 100%;
   height: 100%;
   background-color: rgba(0, 0, 0, 0.8);
-  z-index: 9999;
+  z-index: 1050;
 }
 .modal-content {
   max-width: 1200px;
