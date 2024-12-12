@@ -48,11 +48,11 @@ export const NguoiNhanHoTroMenu = [
     icon: "fa-solid fa-house",
     path: "/trang-chu",
   },
-  // {
-  //   title: "Xin tài trợ",
-  //   icon: "fa-solid fa-hand-holding-hand",
-  //   path: "/xin-tai-tro",
-  // },
+  {
+    title: "Xin tài trợ",
+    icon: "fa-solid fa-hand-holding-hand",
+    path: "/xin-tai-tro",
+  },
   {
     title: "Đăng xuất",
     icon: "fa-solid fa-right-from-bracket",

@@ -32,9 +32,13 @@ export default {
 
 <style scoped>
 .trang-thai-chien-dich-container {
+  height: 100%;
   padding: 4px 16px;
   border-radius: 16px;
   color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .chua-bat-dau {
   background-color: #d3d3d3;

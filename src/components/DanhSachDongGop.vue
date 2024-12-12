@@ -54,7 +54,7 @@ export default {
   name: "DanhSachDongGop",
   components: { TrangThaiDongGop },
   setup() {
-    // Nhận thông tin real-tim
+    // Nhận thông tin real-time
     const signalR = useSignalR();
 
     // Gửi thông tin

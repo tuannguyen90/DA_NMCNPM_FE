@@ -4,12 +4,7 @@
       <span style="font-size: x-large; font-weight: 700"
         >Danh sách chiến dịch</span
       >
-      <li
-        v-for="chienDich in danhSachChienDich"
-        class="item"
-        :class="canEditProp ? 'can-edit' : 'not-edit'"
-        @click.prevent="selectHandle(chienDich)"
-      >
+      <li v-for="chienDich in danhSachChienDich" class="item">
         <!-- Leading -->
         <div class="item-leading">
           <i class="fa-solid fa-paper-plane fa-xl"></i>
@@ -27,25 +22,62 @@
             <span style="font-weight: 700">Mục tiêu :</span>
             {{ $formatCurrency(chienDich.nganSachDuKien) }} đ -
             <span style="font-weight: 700">Đạt được: </span
-            >{{ $formatCurrency(chienDich.thucThu) }}đ
+            >{{ $formatCurrency(chienDich.thucThu) }} đ -
+            <span style="font-weight: 700">Đã chi: </span>
+            {{ $formatCurrency(chienDich.thucChi) }} đ
           </div>
 
-          <!-- Buttons -->
-          <div v-if="canEditProp == true" class="buttons">
-            <!-- Chỉnh sửa -->
-            <div
+          <!-- Normal Buttons -->
+          <div v-if="!canEditProp" class="buttons" style="font-size: medium">
+            <!-- Trạng thái -->
+            <TrangThaiChienDich
+              :TrangThai="chienDich.trangThai"
               style="margin-right: 16px"
-              @click.prevent="chinhSua(chienDich)"
+            />
+
+            <!-- Xem chi tiết chiến dịch -->
+            <button
+              @click.prevent="selectHandle(chienDich)"
+              style="margin-right: 16px"
             >
-              <button>Chỉnh sửa</button>
+              Xem chi tiết
+            </button>
+
+            <!-- Xem báo cáo Buttons -->
+            <button @click.prevent="openBaoCao(chienDich)">
+              Báo cáo thu chi
+            </button>
+          </div>
+
+          <!-- Edits Buttons -->
+          <div
+            v-if="canEditProp == true"
+            class="buttons"
+            style="font-size: medium"
+          >
+            <!-- Trạng thái -->
+            <TrangThaiChienDich
+              :TrangThai="chienDich.trangThai"
+              style="margin-right: 16px"
+            />
+
+            <!-- Chỉnh sửa -->
+            <div style="margin-right: 16px">
+              <button @click.prevent="chinhSua(chienDich)">Chỉnh sửa</button>
             </div>
 
             <!-- Xem danh sách đóng góp -->
-            <div
-              style="margin-right: 16px"
-              @click.prevent="xemDanhSachDongGop(chienDich)"
-            >
-              <button>Danh sách đóng góp</button>
+            <div style="margin-right: 16px">
+              <button @click.prevent="xemDanhSachDongGop(chienDich)">
+                Danh sách đóng góp
+              </button>
+            </div>
+
+            <!-- Xem danh sách xin tài trợ -->
+            <div style="margin-right: 16px">
+              <button @click.prevent="xemDanhSachXinTaiTro(chienDich)">
+                Danh sách xin tài trợ
+              </button>
             </div>
 
             <!-- Xóa -->
@@ -55,9 +87,9 @@
           </div>
         </div>
         <!-- Trailing -->
-        <div class="item-trailing">
+        <!-- <div class="item-trailing">
           <TrangThaiChienDich :TrangThai="chienDich.trangThai" />
-        </div>
+        </div> -->
       </li>
     </ul>
 
@@ -67,16 +99,27 @@
         <span class="close" @click="dongChiTietChienDich">&times;</span>
         <ChiTietChienDich :chienDich="chienDich" class="modal-content" /></div
     ></transition>
+
+    <!-- Chi tiết chiến dịch -->
+    <transition name="fade">
+      <div class="modal" v-if="baoCaoChienDich">
+        <span class="close" @click="closeBaoCao">&times;</span>
+        <BaoCaoChienDich
+          :chienDich="baoCaoChienDich"
+          class="modal-content"
+        /></div
+    ></transition>
   </div>
 </template>
 
 <script>
 import TrangThaiChienDich from "./TrangThaiChienDich.vue";
 import ChiTietChienDich from "./ChiTietChienDich.vue";
+import BaoCaoChienDich from "./BaoCaoChienDich.vue";
 
 export default {
   name: "DanhSachChienDich",
-  components: { TrangThaiChienDich, ChiTietChienDich },
+  components: { TrangThaiChienDich, ChiTietChienDich, BaoCaoChienDich },
   props: [
     "danhSachChienDich",
     "canEditProp",
@@ -86,6 +129,7 @@ export default {
   data() {
     return {
       chienDich: null,
+      baoCaoChienDich: null,
     };
   },
   methods: {
@@ -94,6 +138,9 @@ export default {
     },
     xemDanhSachDongGop(chienDich) {
       this.$emit("xemDanhSachDongGop", chienDich);
+    },
+    xemDanhSachXinTaiTro(chienDich) {
+      this.$emit("xemDanhSachXinTaiTro", chienDich);
     },
     selectHandle(chienDich) {
       if (!this.canEditProp) {
@@ -111,6 +158,12 @@ export default {
     },
     dongChiTietChienDich() {
       this.chienDich = null;
+    },
+    openBaoCao(chienDich) {
+      this.baoCaoChienDich = chienDich;
+    },
+    closeBaoCao() {
+      this.baoCaoChienDich = null;
     },
   },
 };
@@ -169,13 +222,17 @@ export default {
   align-items: center;
 }
 .buttons {
-  height: 100%;
+  /* height: 100%; */
   width: 100%;
   margin-top: 8px;
   display: flex;
   flex-direction: row;
   justify-content: start;
   align-items: center;
+}
+
+button {
+  margin-bottom: 0;
 }
 
 .modal {

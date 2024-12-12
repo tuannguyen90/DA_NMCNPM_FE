@@ -14,11 +14,11 @@
           </tr>
           <tr>
             <th>Ngày bắt đầu:</th>
-            <td>{{ chienDich.ngayBatDau }}</td>
+            <td>{{ $formatDateTime(chienDich.ngayBatDau) }}</td>
           </tr>
           <tr>
             <th>Ngày kết thúc:</th>
-            <td>{{ chienDich.ngayKetThuc }}</td>
+            <td>{{ $formatDateTime(chienDich.ngayKetThuc) }}</td>
           </tr>
           <tr>
             <th>Thực thu:</th>
@@ -36,20 +36,93 @@
     <button @click.prevent="openForm">Xin tài trợ</button>
 
     <!-- Form xin tài trợ -->
-    <div class="xin-tai-tro-form modal" v-if="isFormOpen">
-      <span class="close" @click="closeForm">&times;</span>
-      <div class="modal-content"></div>
-    </div>
+    <transition name="fade">
+      <div class="xin-tai-tro-form modal" v-if="isFormOpen">
+        <span class="close" @click="closeForm">&times;</span>
+        <div class="modal-content">
+          <form @submit.prevent="xinTaiTro">
+            <!-- Title -->
+            <div>
+              <span style="font-size: larger; font-weight: 700"
+                >Xin Tài Trợ</span
+              >
+            </div>
+
+            <!-- Nội dung -->
+            <label for="noi-dung" style="margin-top: 16px">Nội dung</label>
+            <textarea
+              required
+              name="noi-dung"
+              id="noi-dung"
+              rows="5"
+              v-model="noiDung"
+            ></textarea>
+
+            <!-- Tên ngân hàng -->
+            <label for="ten-ngan-hang">Tên ngân hàng</label>
+            <input
+              required
+              type="text"
+              name="ten-ngan-hang"
+              id="ten-ngan-hang"
+              v-model="tenNganHang"
+            />
+
+            <!-- Tên chủ tài khoản -->
+            <label for="ten-chu-tai-khoan">Tên chủ tài khoản</label>
+            <input
+              required
+              type="text"
+              name="ten-chu-tai-khoan"
+              id="ten-chu-tai-khoan"
+              v-model="tenChuTaiKhoan"
+            />
+
+            <!-- Số tài khoản -->
+            <label for="so-tai-khoan">Số tài khoản</label>
+            <input
+              required
+              type="text"
+              name="so-tai-khoan"
+              id="so-tai-khoan"
+              v-model="soTaiKhoan"
+            />
+
+            <!-- Swiftcode -->
+            <label for="swift-code">SwiftCode</label>
+            <input
+              required
+              type="text"
+              name="swift-code"
+              id="swift-code"
+              v-model="swiftCode"
+            />
+
+            <!-- Submit butt -->
+            <button type="submit">Gửi</button>
+          </form>
+        </div>
+      </div>
+    </transition>
   </div>
 </template>
 
 <script>
+import { useUserStore } from "@/stores/user";
+import Swal from "sweetalert2";
+import xinTaiTroService from "@/services/xinTaiTroService";
+
 export default {
   name: "XinTaiTro",
   props: ["chienDich"],
   data() {
     return {
       isFormOpen: false,
+      noiDung: "",
+      tenNganHang: "",
+      tenChuTaiKhoan: "",
+      soTaiKhoan: "",
+      swiftCode: "",
     };
   },
   methods: {
@@ -58,6 +131,39 @@ export default {
     },
     closeForm() {
       this.isFormOpen = false;
+    },
+    async xinTaiTro() {
+      const userStore = useUserStore();
+
+      var body = {
+        idnguoiNhan: userStore.userId,
+        idChienDich: this.chienDich.idChienDich,
+        noiDung: this.noiDung,
+        phanHoi: "",
+        tenNganHang: this.tenNganHang,
+        tenChuTaiKhoan: this.tenChuTaiKhoan,
+        soTaiKhoan: this.soTaiKhoan,
+        swiftCode: this.swiftCode,
+      };
+
+      // console.log(JSON.stringify(body));
+      try {
+        const status = await xinTaiTroService.xinTaiTro(body);
+        if (status) {
+          await Swal.fire("Thông báo", "Đã gửi thành công", "success");
+          this.isFormOpen = false;
+          this.noiDung = "";
+          this.tenNganHang = "";
+          this.tenChuTaiKhoan = "";
+          this.soTaiKhoan = "";
+          this.swiftCode = "";
+          this.$emit("daGuiXinTaiTroThanhCong");
+        } else {
+          Swal.fire("Thông báo", "Đã có lỗi xảy ra", "error");
+        }
+      } catch (error) {
+        Swal.fire("Thông báo", "Đã có lỗi xảy ra", "error");
+      }
     },
   },
 };
@@ -110,6 +216,7 @@ tr:nth-child(even) {
   width: 80%;
   height: 80%;
   background-color: white;
+  padding: 16px;
 }
 
 .close {
@@ -120,5 +227,9 @@ tr:nth-child(even) {
   font-size: 50px;
   color: white;
   cursor: pointer;
+}
+
+input {
+  width: 100%;
 }
 </style>

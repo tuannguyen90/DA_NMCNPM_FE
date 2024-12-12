@@ -19,7 +19,7 @@ app.use(UtilPlugin);
 
 // SignalR
 const connection = new HubConnectionBuilder()
-  .withUrl(`http://159.223.62.214:5133/notificationService`, {
+  .withUrl(`http://192.168.100.215:5133/notificationService`, {
     withCredentials: false,
   })
   .withAutomaticReconnect()

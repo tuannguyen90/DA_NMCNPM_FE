@@ -19,6 +19,7 @@
         :can-edit-prop="true"
         @chienDichDuocChonDeSua="chienDichDuocChonDeSua"
         @xemDanhSachDongGop="xemDanhSachDongGop"
+        @xemDanhSachXinTaiTro="xemDanhSachXinTaiTro"
       />
 
       <!-- Thêm mới chiến dịch -->
@@ -55,6 +56,13 @@
             class="modal-content"
           /></div
       ></transition>
+
+      <!-- Danh sách xin tài trợ -->
+      <DanhSachXinTaiTroTCTT
+        v-if="secondaryTitle == 'Danh sách xin tài trợ'"
+        :chienDich="chienDich"
+        @daDuyetTaiTro="daDuyetTaiTro"
+      />
     </template>
   </HomeLayout>
 </template>
@@ -66,6 +74,7 @@ import DanhSachChienDich from "@/components/DanhSachChienDich.vue";
 import ChinhSuaChienDich from "@/components/ChinhSuaChienDich.vue";
 import ThemMoiChienDich from "@/components/ThemMoiChienDich.vue";
 import DanhSachDongGop from "@/components/DanhSachDongGop.vue";
+import DanhSachXinTaiTroTCTT from "@/components/DanhSachXinTaiTroTCTT.vue";
 
 import chienDichService from "@/services/ChienDichService";
 import dongGopService from "@/services/dongGopService";
@@ -83,6 +92,7 @@ export default {
     ThemMoiChienDich,
     ChinhSuaChienDich,
     DanhSachDongGop,
+    DanhSachXinTaiTroTCTT,
   },
   setup() {
     const signalR = useSignalR();
@@ -158,6 +168,14 @@ export default {
     },
     closeHinhAnhDongGopModal() {
       this.hinhAnhDongGop = null;
+    },
+    xemDanhSachXinTaiTro(chienDich) {
+      this.chienDich = chienDich;
+      this.secondaryTitle = "Danh sách xin tài trợ";
+    },
+    daDuyetTaiTro() {
+      this.getDanhSachChienDich();
+      this.notification("Client", "XinTaiTro");
     },
   },
 };
