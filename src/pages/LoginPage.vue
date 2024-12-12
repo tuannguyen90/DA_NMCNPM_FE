@@ -10,7 +10,9 @@
         >
         <input id="email" type="email" v-model="email" required />
         <!-- Password -->
-        <label for="mat-khau" style="margin-top: 8px; margin-bottom: 4px">Mật khẩu </label>
+        <label for="mat-khau" style="margin-top: 8px; margin-bottom: 4px"
+          >Mật khẩu
+        </label>
         <div class="password-wrapper">
           <input
             id="mat-khau"
@@ -47,9 +49,11 @@
           <a href="#" @click.prevent="openRegisterPage">Đăng ký</a></span
         >
         <!-- Truy cập không cần đăng nhập -->
-         <span style="margin-top: 16px;">
-          <a href="#" @click.prevent="truyCapTrangChu">Truy cập không cần đăng nhập</a>
-         </span>
+        <span style="margin-top: 16px">
+          <a href="#" @click.prevent="truyCapTrangChu"
+            >Truy cập không cần đăng nhập</a
+          >
+        </span>
       </form>
     </div>
     <div class="auth-page-right">
@@ -83,23 +87,27 @@ export default {
   },
   mounted() {
     const userStore = useUserStore();
-      userStore.setEmail('');
-      userStore.setTen('');
-      userStore.setToken('');
-      userStore.setUserId('');
-      userStore.setUserType('');
-      userStore.setMenu(AnomynouseMenu);      
+    userStore.setEmail("");
+    userStore.setTen("");
+    userStore.setToken("");
+    userStore.setUserId("");
+    userStore.setUserType("");
+    userStore.setStatus(-1);
+    userStore.setMenu(AnomynouseMenu);
   },
   methods: {
     async login() {
       try {
         const result = await authService.loginAPI(this.email, this.password);
         if (result != null) {
+          console.log(JSON.stringify(result));
+
           const userStore = useUserStore();
           userStore.setEmail(this.email);
           userStore.setToken(result.user_token);
           userStore.setUserId(result.user_id);
           userStore.setUserType(result.user_type);
+          userStore.setStatus(result.status);
           switch (result.user_type) {
             case 0:
               userStore.setMenu(QuanTriHeThongMenu);
@@ -131,7 +139,7 @@ export default {
     },
     truyCapTrangChu() {
       router.push("/trang-chu");
-    }
+    },
   },
 };
 </script>

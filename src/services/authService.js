@@ -60,6 +60,7 @@ const loginAPI = async (email, password) => {
         user_id: response.data.nguoiDungId,
         user_type: response.data.loai,
         user_token: response.data.token,
+        status: response.data.status,
       };
     } else {
       return null;
@@ -132,21 +133,20 @@ const getAllNguoiDung = async () => {
     const response = await apiClient.get(url);
     if (response.status == 200) {
       return response.data;
-    }
-    else {
+    } else {
       return [];
     }
   } catch (error) {
     throw error;
   }
-}
+};
 
 const verifyGiayPhep = async (idToChuc) => {
   const url = `/NguoiDung/${idToChuc}/VerifyPaper`;
   try {
     const response = await apiClient.put(url, {
-      id: idToChuc
-    })
+      id: idToChuc,
+    });
     if (response.status == 200 || response.status == 201) {
       return true;
     } else {
@@ -155,7 +155,7 @@ const verifyGiayPhep = async (idToChuc) => {
   } catch (error) {
     throw error;
   }
-}
+};
 
 export default {
   registerAPI,

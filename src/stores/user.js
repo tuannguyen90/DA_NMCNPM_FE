@@ -7,6 +7,7 @@ export const useUserStore = defineStore("user", {
     token: localStorage.getItem("token") || "",
     userId: localStorage.getItem("user_id") || "",
     userType: localStorage.getItem("user_type") || "",
+    status: localStorage.getItem("status") || -1,
     menu: JSON.parse(localStorage.getItem("menu")) || [],
   }),
   actions: {
@@ -33,6 +34,10 @@ export const useUserStore = defineStore("user", {
     setMenu(menu) {
       this.menu = menu;
       localStorage.setItem("menu", JSON.stringify(menu));
+    },
+    setStatus(status) {
+      this.status = status;
+      localStorage.setItem("status", status);
     },
   },
 });

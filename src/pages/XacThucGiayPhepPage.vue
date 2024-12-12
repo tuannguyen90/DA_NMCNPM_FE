@@ -9,9 +9,17 @@
     <template v-slot:main>
       <div class="xac-thuc-giay-phep-container">
         <!-- Trạng thái giấy phép -->
+        <div>
+          <span style="font-size: large; font-weight: 700"
+            >Hình ảnh giấy phép:</span
+          >
+        </div>
+        <div style="display: flex; flex-direction: row">
+          <TrangThaiGiayPhep :TrangThai="Number(status)" />
+        </div>
 
         <!-- Hình ảnh giấy phép -->
-        <div style="cursor: pointer">
+        <div style="cursor: pointer; margin-top: 16px">
           <div>
             <span style="font-size: large; font-weight: 700"
               >Hình ảnh giấy phép:</span
@@ -53,8 +61,11 @@
 <script>
 import HomeLayout from "@/components/HomeLayout.vue";
 import Header from "@/components/Header.vue";
+import TrangThaiGiayPhep from "@/components/TrangThaiGiayPhep.vue";
 
 import authService from "@/services/authService";
+
+import { useUserStore } from "@/stores/user";
 
 import Swal from "sweetalert2";
 
@@ -63,16 +74,20 @@ export default {
   components: {
     HomeLayout,
     Header,
+    TrangThaiGiayPhep,
   },
   data() {
     return {
       selectedFile: null,
       imageData: null,
       isModalOpen: false,
+      status: 1,
     };
   },
   mounted() {
     this.getImage();
+    const userStore = useUserStore();
+    this.status = userStore.status;
   },
   methods: {
     handleFileUpload(event) {

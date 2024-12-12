@@ -24,6 +24,7 @@ export default {
         case 2:
           return "da-xac-thuc";
         default:
+          console.log(`====> ${this.TrangThai}`);
           return "";
       }
     },

@@ -1,16 +1,19 @@
 <template>
-  <div class="bao-cao-chien-dich-container">
+  <div class="bao-cao-chien-dich-container" id="bao-cao-full">
     <div>
       <span style="font-size: larger; font-weight: 700"
-        >Báo cáo thu chi của chiến dịch "{{ chienDich.ten }}"</span
+        >Báo cáo thu chi của chiến dịch "{{ chienDich.ten }} "</span
       >
+      <button @click.prevent="exportToPDF" style="margin-left: 16px">
+        Xuất pdf
+      </button>
     </div>
 
     <!-- Danh sách đóng góp -->
     <div style="margin-top: 16px">
       <span style="font-size: large; font-weight: 700">Danh sách đóng góp</span>
     </div>
-    <table style="margin-top: 8px">
+    <table style="margin-top: 8px" id="danh-sach-dong-gop">
       <thead>
         <tr>
           <th>STT</th>
@@ -41,7 +44,7 @@
         >Danh sách được nhận tài trợ</span
       >
     </div>
-    <table style="margin-top: 8px">
+    <table style="margin-top: 8px" id="danh-sach-tai-tro">
       <thead>
         <tr>
           <th>STT</th>
@@ -77,6 +80,9 @@
 <script>
 import dongGopService from "@/services/dongGopService";
 import xinTaiTroService from "@/services/xinTaiTroService";
+import jsPDF from "jspdf";
+import "jspdf-autotable";
+import "@/assets/font/OpenSans-Medium-normal.js";
 
 export default {
   name: "BaoCaoChienDich",
@@ -127,6 +133,112 @@ export default {
         return "Từ chối";
       }
     },
+    exportToPDF() {
+      const doc = new jsPDF();
+
+      doc.setFont("OpenSans-Medium", "normal");
+
+      doc.text("Báo cáo thu chi", 10, 10);
+
+      const dongGopHeader = [
+        [
+          "STT",
+          "Tên chiến dịch",
+          "Thời gian",
+          "Tên người đóng góp",
+          "Số tiền (VND)",
+          "Ghi Chú",
+          "Trạng thái",
+        ],
+      ];
+
+      const dongGopData = this.danhSachDongGop.map((item, index) => [
+        index + 1,
+        item.tenChienDich,
+        this.$formatDateTime(item.ngayDongGop),
+        item.tenNguoiChuyen,
+        this.$formatCurrency(item.soTien),
+        item.ghiChu,
+        this.getTrangThaiByIndex(item.trangThai),
+      ]);
+
+      doc.autoTable({
+        head: dongGopHeader,
+        body: dongGopData,
+        startY: 15,
+        theme: "grid",
+        styles: {
+          font: "OpenSans-Medium",
+        },
+        headStyles: {
+          fillColor: [13, 71, 161],
+          textColor: 255,
+        },
+        bodyStyles: {},
+        margin: {
+          top: 10,
+          left: 10,
+          right: 10,
+        },
+      });
+
+      // tài trợ
+      const nextY = doc.autoTable.previous.finalY + 10;
+
+      doc.text("Danh sách tài trợ", 10, nextY);
+
+      const taiTroHeader = [
+        [
+          "STT",
+          "Tên chiến dịch",
+          "Tên người nhận",
+          "Tên ngân hàng",
+          "Số tài khoản",
+          "Số tiền (VND)",
+          "Ngày nhận",
+          "Nội dung",
+          "Phản hồi",
+          "Trạng thái",
+        ],
+      ];
+
+      const taiTroData = this.danhSachTaiTro.map((taiTro, index) => [
+        index + 1,
+        taiTro.tenChienDich,
+        taiTro.tenNguoiNhan,
+        taiTro.tenNganHang,
+        taiTro.soTaiKhoan,
+        this.$formatCurrency(taiTro.soTien),
+        this.$formatDateTime(taiTro.ngayTaiTro),
+        taiTro.noiDung,
+        taiTro.phanHoi,
+        this.getTrangThaiTaiTroByIndex(taiTro.trangThai),
+      ]);
+
+      const nextY2 = doc.autoTable.previous.finalY + 15;
+
+      doc.autoTable({
+        head: taiTroHeader,
+        body: taiTroData,
+        startY: nextY2,
+        theme: "grid",
+        styles: {
+          font: "OpenSans-Medium",
+        },
+        headStyles: {
+          fillColor: [13, 71, 161],
+          textColor: 255,
+        },
+        bodyStyles: {},
+        margin: {
+          top: 10,
+          left: 10,
+          right: 10,
+        },
+      });
+
+      doc.save("bao-cao.pdf");
+    },
   },
 };
 </script>
@@ -136,5 +248,6 @@ export default {
   height: 100%;
   width: 100%;
   padding: 16px;
+  overflow-y: scroll;
 }
 </style>

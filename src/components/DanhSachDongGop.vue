@@ -28,10 +28,12 @@
           <td>{{ $formatCurrency(dongGop.soTien) }} đ</td>
           <td>{{ $formatDateTime(dongGop.ngayDongGop) }}</td>
           <td>
-            <TrangThaiDongGop
-              :TrangThaiProp="dongGop.trangThai"
-              @duyetDongGop="duyetDongGop(dongGop.iddongGop)"
-            />
+            <div style="display: flex; flex-direction: row">
+              <TrangThaiDongGop
+                :TrangThaiProp="dongGop.trangThai"
+                @duyetDongGop="duyetDongGop(dongGop.iddongGop)"
+              />
+            </div>
           </td>
           <td>
             <a href="#" @click.prevent="moHinhAnh(dongGop.iddongGop)"

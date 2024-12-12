@@ -21,7 +21,11 @@
         <tr v-for="xinTaiTro in danhSachXinTaiTro">
           <td>{{ xinTaiTro.tenChienDich }}</td>
           <td>{{ xinTaiTro.noiDung }}</td>
-          <td><TrangThaiXinTaiTro :trangThai="xinTaiTro.trangThai" /></td>
+          <td>
+            <div style="display: flex; flex-direction: row">
+              <TrangThaiXinTaiTro :trangThai="xinTaiTro.trangThai" />
+            </div>
+          </td>
           <td>
             <div style="display: flex">
               <button
