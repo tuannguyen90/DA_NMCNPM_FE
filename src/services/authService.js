@@ -27,7 +27,7 @@ const registerAPI = async (
       return null;
     }
   } catch (error) {
-    throw error;
+    throw error.response.data.msg;
   }
 };
 

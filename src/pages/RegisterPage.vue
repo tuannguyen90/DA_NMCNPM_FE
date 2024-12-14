@@ -94,6 +94,8 @@ export default {
   },
   methods: {
     async dangKy() {
+      // reset
+      this.errorMessage = "";
       // loại người dùng
       var loaiNguoiDung = 0;
       switch (this.loaiNguoiDung) {
@@ -107,6 +109,8 @@ export default {
           loaiNguoiDung = 1;
           break;
       }
+
+      this.soDienThoai = this.formatPhoneNumber(this.soDienThoai);
 
       try {
         var token = await authService.registerAPI(
@@ -127,7 +131,13 @@ export default {
           this.isVerifyingOTP = true;
         }
       } catch (error) {
-        this.errorMessage = "Vui lòng kiểm tra lại các thông tin đã nhập.";
+        console.log(`${error}`);
+
+        if (String(error).includes("Invalid parameter")) {
+          this.errorMessage = "Số điện thoại không hợp lệ";
+        } else {
+          this.errorMessage = `Vui lòng kiểm tra lại các thông tin đã nhập. ${error}`;
+        }
       }
     },
     async xacThucOTP() {
@@ -154,6 +164,13 @@ export default {
     togglePasswordVisibility() {
       this.passwordFieldType =
         this.passwordFieldType === "password" ? "text" : "password";
+    },
+    formatPhoneNumber(phoneNumber) {
+      if (phoneNumber.startsWith("0")) {
+        return "+84" + phoneNumber.slice(1);
+      } else {
+        return phoneNumber;
+      }
     },
   },
 };
